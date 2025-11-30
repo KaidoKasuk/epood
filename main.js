@@ -18,7 +18,7 @@ phone = new Product(2, "luts", 116.99, "elektroonika");
 
 console.log(laptop.describe());
 //allahindlus
-console.log(Product.discountedPrice(laptop.price, 10)); // 10% allahindlus
+console.log(`allahindlusega: ${Product.discountedPrice(laptop.price, 10)}`);
 
 // 2 ostukorv //
 
@@ -30,9 +30,19 @@ class Cart {
   addProduct(product, quantity) {
     this.items.push({ product, quantity });
   }
-  removeProduct(productId) {
-    this.items = this.items.filter((item) => item.product.id !== productId);
+  removeProduct(product, change) {
+    const existing = this.items.find((item) => item.product.id === product.id);
+
+    if (!existing) return;
+
+    existing.quantity -= change;
+
+    // eemaldab produkti täielikult (vana)
+    if (existing.quantity <= 0) {
+      this.items = this.items.filter((item) => item.product.id !== product.id);
+    }
   }
+
   calculateTotal() {
     return this.items
       .reduce((sum, item) => sum + item.product.price * item.quantity, 0)
@@ -47,22 +57,54 @@ class Cart {
 const cart = new Cart();
 //lisan produkte
 cart.addProduct(laptop, 3);
-cart.addProduct(phone, 0);
+cart.addProduct(phone, 4); //peaks parandama et liidaks mitte ei lisa uue rea kui vaja
+
+// eemaldamine
+cart.removeProduct(laptop, 1);
+
 console.log(cart.items); // array
-console.log(cart.calculateTotal()); // Kokku hind
+console.log(` hind kokku ${cart.calculateTotal()}`); //  hind kokku
+console.log(`tooteid kokku: ${cart.totalItems}`); // asju kokku
 
-console.log(cart.totalItems); //kokku asju
-
-// 3 tellimused ja kliendi andmed (appi) //
+// 3 tellimused ja kliendi andmed  //
 
 class Order {
-  constructor() {
-    this.items = [];
+  constructor(date, cart) {
+    this.date = date;
+    this.cart = cart;
   }
-  orderDate(date) {
-    return this.items.push({ date });
+  printOrder() {
+    const productLines = this.cart.items.map(
+      (item) => `${item.product.title}: ${item.quantity}`
+    );
+    return `
+     Kuupäev: ${
+       this.date
+     } Hind kokku: ${this.cart.calculateTotal()} Tooted: ${productLines}
+  `;
   }
 }
-const date = new Date(1);
-const order = new Order(cart);
-console.log(order.items); // array
+const order = new Order("29.11.25", cart);
+
+console.log(order.printOrder());
+
+//alge variant
+// console.log(cart.items[1].product.title);
+
+//4 klient //
+
+class Customer {
+  constructor(name) {
+    this.name = name;
+    this.orderHistory = [];
+  }
+  placeOrder(cart) {
+    this.orderHistory.push(order.printOrder());
+  }
+  printOrderHistory() {
+    console.log(this.orderHistory);
+  }
+}
+const customer = new Customer("Alice");
+customer.placeOrder(cart);
+customer.printOrderHistory();
