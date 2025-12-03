@@ -1,0 +1,10 @@
+#header {
+  display: flex;
+  justify-content: space-between; /* text left, buttons right */
+  align-items: center;
+  margin: 0;
+}
+
+#product {
+  border: 2px solid;
+}

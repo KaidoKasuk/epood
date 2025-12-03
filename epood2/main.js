@@ -1,10 +1,10 @@
-import { Product } from "./product.js";
+import { Product } from "./constructors/product.js";
 
-import { Cart } from "./cart.js";
+import { Cart } from "./constructors/cart.js";
 
-import { Customer } from "./customer.js";
+import { Customer } from "./constructors/customer.js";
 
-import { Order } from "./order.js";
+import { Order } from "./constructors/order.js";
 
 // Loo mõned tooted
 
