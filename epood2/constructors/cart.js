@@ -3,6 +3,11 @@ class Cart {
     this.items = [];
   }
 
+  //Võta kõik ostukorvi tooted
+  getAllProducts() {
+    return this.items;
+  }
+
   addProduct(product, quantity) {
     this.items.push({ product, quantity });
   }
@@ -31,3 +36,4 @@ class Cart {
 }
 
 export { Cart };
+export const cartConstructor = new Cart();

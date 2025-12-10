@@ -1,4 +1,4 @@
-class Product {
+export class Product {
   constructor(id, title, price, category) {
     this.id = id;
     this.title = title;
@@ -13,4 +13,5 @@ class Product {
   }
 }
 
-export { Product };
+// console.log(laptop.describe());
+// console.log(`allahindlusega: ${Product.discountedPrice(laptop.price, 10)}`);

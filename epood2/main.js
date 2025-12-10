@@ -6,30 +6,36 @@ import { Customer } from "./constructors/customer.js";
 
 import { Order } from "./constructors/order.js";
 
+import { displayAllProductsView } from "./views/allProductsView.js";
+import { displayDetailView } from "./views/productDetailView.js";
+import { displayCartView } from "./views/cartView.js";
+
 // Loo mõned tooted
-
-const laptop = new Product(1, "Sülearvuti", 999.99, "Elektroonika");
-const phone = new Product(2, "Telefon", 599.99, "Elektroonika");
-
-//allahindlus
-
-console.log(laptop.describe());
-console.log(`allahindlusega: ${Product.discountedPrice(laptop.price, 10)}`);
+export const Products = [
+  new Product(1, "Sülearvuti", 999.99, "Elektroonika"),
+  new Product(2, "Telefon", 599.99, "Elektroonika"),
+  new Product(3, "seljakott", 100.99, "riided"),
+  new Product(4, "maci halb hiir", 100.99, "riided"),
+];
+//-----------------------VAATED---------------//
+// displayAllProductsView(Products);
+// displayDetailView(Products[1]);
+// displayCartView(cart);
+// renderProducts([laptop, phone]);
 
 // Loo ostukorv ja lisa tooted
 
 const cart = new Cart();
-
-cart.addProduct(laptop, 1);
-
-cart.addProduct(phone, 2);
-
+cart.addProduct(Product, 1);
+cart.addProduct(Product, 2);
+console.log(Products);
+//-----------------------VAATED---------------//
+// displayCartView(cart);
 // Kuvage ostukorvi summa ja toodete arv
 
 const order = new Order("29.11.25", cart);
 console.log(order.printOrder());
 console.log("Kogusumma:", cart.calculateTotal());
-
 console.log("Kokku tooteid ostukorvis:", cart.totalItems);
 
 // Loo klient ja esita tellimus
