@@ -1,29 +1,49 @@
+body {
+  margin: 0;
+}
 #header {
   display: flex;
-  justify-content: space-between; /* text left, buttons right */
+  justify-content: space-between;
   align-items: center;
   margin: 0;
+  /* padding-bottom: 20lvh; */
+  padding: 2lvh;
+  background-color: rgb(193, 193, 193);
+  margin-bottom: 10lvh;
 }
 /* produktid eraldi, peavaade */
 .allProductsWrapper {
   display: flex;
-  gap: 10px;
-  max-width: 200px;
+  gap: 20px;
+  flex-flow: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-right: 20lvh;
+  margin-left: 20lvh;
 }
 h5 {
-  color: gray;
+  text-align: left;
+  padding-left: 5px;
+  font-family: monospace;
 }
-/* #product {
-  display: flex;
-  padding-inline-start: 10px;
-  gap: 10px;
-} */
+.productTitle {
+  font-family: "Courier New", Courier, monospace;
+  font-weight: bold;
+  text-align: center;
+  font-size: large;
+  padding-left: 5px;
+}
 .oneProduct {
   padding: 5px;
   display: grid;
   justify-items: left;
-  min-width: 150px;
+  min-width: 200px;
   border: 2px solid;
+  background-color: rgb(255, 248, 235);
+}
+.oneProduct:hover {
+  transform: scale(1.005);
+  box-shadow: 1px 2px 2px rgb(0, 0, 0);
 }
 .productImage {
   justify-self: center;
@@ -32,10 +52,34 @@ h5 {
   display: flex;
   align-items: center;
 }
+
+.heartLabel {
+  display: none;
+}
+
 .heartInProduct {
-  position: absolute;
-  justify-self: end;
-  align-self: start;
+  fill: none;
+}
+
+.heartWrapper input:checked + .heartInProduct {
+  fill: red;
+  stroke: crimson;
+  transform: scale(1.1);
+}
+
+.buyButton {
+  background-color: rgb(0, 208, 255);
+  border: 1px solid;
+  border-radius: 20px;
+  font-size: 15px;
+  padding: 8px;
+  border-color: rgb(0, 101, 101);
+}
+.buyButton:hover {
+  transform: scale(1.05);
+}
+.buyButton:active {
+  background-color: white;
 }
 /* detail vaade */
 

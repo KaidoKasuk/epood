@@ -36,4 +36,5 @@ class Cart {
 }
 
 export { Cart };
-export const cartConstructor = new Cart();
+
+//calculateTotal();

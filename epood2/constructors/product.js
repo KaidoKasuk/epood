@@ -1,3 +1,5 @@
+// import { Products } from "../main.js";
+
 export class Product {
   constructor(id, title, price, category) {
     this.id = id;
@@ -13,5 +15,5 @@ export class Product {
   }
 }
 
-// console.log(laptop.describe());
+// console.log(products[1].describe());
 // console.log(`allahindlusega: ${Product.discountedPrice(laptop.price, 10)}`);

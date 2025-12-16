@@ -1,21 +1,18 @@
 //funktsioon ostukorvi vaateks
-export const displayCartView = (cart) => {
+export const displayFavorites = (customer) => {
   //html osa
-  const displayCartView = document.getElementById("product");
+  const displayFavorites = document.getElementById("product");
   //palju cartis ERINEVAID TOOTEID
-  const cartLenght = cart.getAllProducts();
+  const favoriteLenght = customer.getFavorites();
   //kui ostukorv tuhi
-  if (cartLenght.length === 0) {
-    displayCartView.innerHTML = `<p>Ostukorv on tuhi</p>`;
+  if (favoriteLenght.length === 0) {
+    displayFavorites.innerHTML = `<p>Lemmikuid veel pole</p>`;
     return;
   }
-  //toodete info automaatseks kuvamiseks
-  let i = -1;
+
   //toodete kuvamine
-  cartLenght.forEach(
-    (product) => {
-      i++;
-      displayCartView.innerHTML += `<div class="ostukorvForEach">
+  favoriteLenght.forEach((product) => {
+    displayFavorites.innerHTML += `<div class="ostukorvForEach">
           <div class="eseKorvis">
             <div>
               <img
@@ -24,9 +21,8 @@ export const displayCartView = (cart) => {
               />
             </div>
             <div>
-              <p>${cart.items[i].product.title}</p>
-              <p>${cart.items[i].product.category}</p>
-              <p>${cart.items[i].product.price}</p>
+              <p>${customer.favorites}</p>
+              
             </div>
             <div>
               <button>eemalda ese</button>
@@ -36,21 +32,7 @@ export const displayCartView = (cart) => {
             </div>
           </div>
         </div>`;
-    },
-    (displayCartView.innerHTML += `        <!-- ostukorvi footer??? -->
-        <div class="ostukorviFooter">
-          <div class="kakskordakolm">
-            <p>vahesumma</p>
-            <p>0</p>
-            <p>soodukas:</p>
-            <p>20%</p>
-            <p>kokku</p>
-            <p>0</p>
-          </div>
-          <button class="osta">osta</button>
-        </div> 
-`)
-  );
+  });
 };
 /* <div class="ostukorvForEach">
           <div class="eseKorvis">

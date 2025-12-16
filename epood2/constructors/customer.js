@@ -4,6 +4,7 @@ class Customer {
   constructor(name) {
     this.name = name;
     this.orderHistory = [];
+    this.favorites = [];
   }
   placeOrder(cart) {
     const order = new Order(new Date().toLocaleDateString(), cart);
@@ -12,6 +13,13 @@ class Customer {
   }
   printOrderHistory() {
     console.log(this.orderHistory);
+  }
+  //favorties
+  addFavorite(item) {
+    this.favorites.push(item);
+  }
+  getFavorites() {
+    return this.favorites;
   }
 }
 

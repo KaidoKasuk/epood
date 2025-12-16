@@ -9,6 +9,7 @@ import { Order } from "./constructors/order.js";
 import { displayAllProductsView } from "./views/allProductsView.js";
 import { displayDetailView } from "./views/productDetailView.js";
 import { displayCartView } from "./views/cartView.js";
+import { displayFavorites } from "./views/favoritesView.js";
 
 // Loo mõned tooted
 export const Products = [
@@ -17,21 +18,13 @@ export const Products = [
   new Product(3, "seljakott", 100.99, "riided"),
   new Product(4, "maci halb hiir", 100.99, "riided"),
 ];
-//-----------------------VAATED---------------//
-// displayAllProductsView(Products);
-// displayDetailView(Products[1]);
-// displayCartView(cart);
-// renderProducts([laptop, phone]);
 
 // Loo ostukorv ja lisa tooted
-
 const cart = new Cart();
-cart.addProduct(Product, 1);
-cart.addProduct(Product, 2);
-console.log(Products);
-//-----------------------VAATED---------------//
-// displayCartView(cart);
-// Kuvage ostukorvi summa ja toodete arv
+cart.addProduct(Products[0], 2); // et toodet saada pead votma selle arrayst product, quantity
+cart.addProduct(Products[1], 3);
+console.log(cart);
+console.log(Products[1].describe());
 
 const order = new Order("29.11.25", cart);
 console.log(order.printOrder());
@@ -39,12 +32,19 @@ console.log("Kogusumma:", cart.calculateTotal());
 console.log("Kokku tooteid ostukorvis:", cart.totalItems);
 
 // Loo klient ja esita tellimus
-
 const customer = new Customer("Alice");
 
 // console.log(order.printOrder());
 customer.placeOrder(cart);
 
 // Kuvage tellimuste ajalugu
-
 customer.printOrderHistory();
+
+// Praeguseks hardcoded lemmikud
+// customer.addFavorite(product[0]);
+
+//-----------------------VAATED---------------//
+displayAllProductsView(Products);
+// displayDetailView(Products[1]);
+// displayCartView(cart);
+// displayFavorites(customer);
