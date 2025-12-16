@@ -41,10 +41,12 @@ customer.placeOrder(cart);
 customer.printOrderHistory();
 
 // Praeguseks hardcoded lemmikud
-// customer.addFavorite(product[0]);
+customer.addFavorite(Products[0]);
+customer.addFavorite(Products[1]);
 
 //-----------------------VAATED---------------//
-displayAllProductsView(Products);
-// displayDetailView(Products[1]);
+// displayAllProductsView(Products);
+displayDetailView(Products[1]);
 // displayCartView(cart);
 // displayFavorites(customer);
+console.log(customer);

@@ -9,14 +9,18 @@ export const displayCartView = (cart) => {
     displayCartView.innerHTML = `<p>Ostukorv on tuhi</p>`;
     return;
   }
+  displayCartView.innerHTML += ` <div class="favoriteAllText">
+          <p class="favoriteTitle">Ostukorv</p>
+          <p>Tooteid kokku ${cartLenght.length}</p>
+        </div>`;
   //toodete info automaatseks kuvamiseks
   let i = -1;
   //toodete kuvamine
-  cartLenght.forEach(
-    (product) => {
-      i++;
-      displayCartView.innerHTML += `<div class="ostukorvForEach">
+  cartLenght.forEach((product) => {
+    i++;
+    displayCartView.innerHTML += `<div class="ostukorvForEach">
           <div class="eseKorvis">
+           <div class="leftSide">
             <div>
               <img
                 src="assets/Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops.png"
@@ -28,29 +32,29 @@ export const displayCartView = (cart) => {
               <p>${cart.items[i].product.category}</p>
               <p>${cart.items[i].product.price}</p>
             </div>
-            <div>
+            </div>
+            <div class="cartButtons">
               <button>eemalda ese</button>
+               <div>
               <button>-</button>
               <label for="">placeholder</label>
               <button>+</button>
+              </div>
             </div>
           </div>
         </div>`;
-    },
-    (displayCartView.innerHTML += `        <!-- ostukorvi footer??? -->
-        <div class="ostukorviFooter">
+  });
+  displayCartView.innerHTML += `<div class="ostukorviFooter">
           <div class="kakskordakolm">
             <p>vahesumma</p>
-            <p>0</p>
+            <p>300</p>
             <p>soodukas:</p>
             <p>20%</p>
             <p>kokku</p>
-            <p>0</p>
+            <p>200000</p>
           </div>
           <button class="osta">osta</button>
-        </div> 
-`)
-  );
+        </div>`;
 };
 /* <div class="ostukorvForEach">
           <div class="eseKorvis">
