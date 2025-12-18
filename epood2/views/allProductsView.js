@@ -1,12 +1,15 @@
-// import { detailView } from "./productDetailView.js";
-// window.detailView = detailView;
 export const displayAllProductsView = (products) => {
+  //võtan htmli
   const displayAllProductsView = document.getElementById("product");
+  //kustudada eelmine vaade
+  displayAllProductsView.innerHTML = "";
+  //lisan ekstra divi css jaoks
   const wrapper = document.createElement("div");
   wrapper.className = "allProductsWrapper";
   displayAllProductsView.appendChild(wrapper);
+  //for eaching iga toote kaardi
   products.forEach((product) => {
-    wrapper.innerHTML += ` <div class="oneProduct">
+    wrapper.innerHTML += ` <div class="oneProduct" id="${product.id}">
             <label class="heartWrapper">
              <input type="checkbox" class="heartLabel">
               <svg

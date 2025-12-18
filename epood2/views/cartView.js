@@ -2,6 +2,8 @@
 export const displayCartView = (cart) => {
   //html osa
   const displayCartView = document.getElementById("product");
+  //kustuda vaated
+  displayCartView.innerHTML = "";
   //palju cartis ERINEVAID TOOTEID
   const cartLenght = cart.getAllProducts();
   //kui ostukorv tuhi

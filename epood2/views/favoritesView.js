@@ -2,6 +2,8 @@
 export const displayFavorites = (customer) => {
   //html osa
   const displayFavorites = document.getElementById("product");
+  //kustuda vaade
+  displayFavorites.innerHTML = "";
   //palju cartis ERINEVAID TOOTEID
   const favoriteLenght = customer.getFavorites();
   //kui ostukorv tuhi

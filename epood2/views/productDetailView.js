@@ -1,6 +1,6 @@
 export const displayDetailView = (product) => {
   const detailView = document.getElementById("product");
-
+  detailView.innerHTML = "";
   detailView.innerHTML += `<button class="tagasi">tagasi</button>
         <div class="detailView">
           <div>

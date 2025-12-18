@@ -57,17 +57,30 @@ customer.printOrderHistory();
 customer.addFavorite(Products[0]);
 customer.addFavorite(Products[1]);
 console.log(customer);
-//- - - - -- - - - -- - HEADERI NUPUD - - -- - - -- //
-const homeButton = document.getElementById("toHomeButton");
-const cartButton = document.getElementById("toCartButton");
-const favoriteButton = document.getElementById("toFavoriteButton");
-homeButton.addEventListener("click", (event) => {
-  console.log("home");
-});
 
 //-----------------------VAATED---------------//
 // displayAllProductsView(Products);
 // displayDetailView(Products[1]);
 // displayCartView(cart);
 // displayFavorites(customer);
-allProductsnavigate();
+allProductsnavigate(displayAllProductsView(Products));
+//- - - - -- - - - -- - HEADERI NUPUD - - -- - - -- //
+const homeButton = document.getElementById("toHomeButton");
+const cartButton = document.getElementById("toCartButton");
+const favoriteButton = document.getElementById("toFavoriteButton");
+const detailViewButton = document.getElementById(`${product.id}`);
+
+cartButton.addEventListener("click", (event) => {
+  allProductsnavigate(displayCartView(cart));
+});
+homeButton.addEventListener("click", (event) => {
+  allProductsnavigate(displayAllProductsView(Products));
+});
+favoriteButton.addEventListener("click", (event) => {
+  allProductsnavigate(displayFavorites(customer));
+});
+
+// // // // detailViewButton.addEventListener("click", (event) => {
+// // // //   const index = Number(event.target.id) - 1;
+// // // //   allProductsnavigate(displayDetailView(Products[index]));
+// // // // });
