@@ -9,8 +9,25 @@ class Cart {
   }
 
   addProduct(product, quantity) {
-    this.items.push({ product, quantity });
+    const existingItem = this.items.find(
+      (item) => item.product.id === product.id
+    );
+    if (existingItem) {
+      existingItem.quantity += 1;
+    } else {
+      this.items.push({ product, quantity });
+    }
   }
+
+  removeQuantity() {
+    const existingItem = this.items.find(
+      (item) => item.product.id === product.id
+    );
+    if (existingItem.quantity > 0) {
+      existingItem.quantity -= quantity;
+    } else;
+  }
+
   removeProduct(product, change) {
     const existing = this.items.find((item) => item.product.id === product.id);
 
@@ -19,15 +36,19 @@ class Cart {
     existing.quantity -= change;
 
     // eemaldab produkti täielikult (vana)
-    if (existing.quantity <= 0) {
-      this.items = this.items.filter((item) => item.product.id !== product.id);
-    }
+    // if (existing.quantity <= 0) {
+    //   this.items = this.items.filter((item) => item.product.id !== product.id);
+    // }
   }
 
   calculateTotal() {
     return this.items
       .reduce((sum, item) => sum + item.product.price * item.quantity, 0)
       .toFixed(2);
+  }
+
+  clearAllItems() {
+    this.items = [];
   }
 
   get totalItems() {
@@ -37,4 +58,5 @@ class Cart {
 
 export { Cart };
 
-//calculateTotal();
+// Loo ostukorv ja lisa tooted
+export const cart = new Cart();

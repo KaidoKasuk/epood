@@ -1,3 +1,6 @@
+import { cart } from "../constructors/cart.js";
+import { Products } from "../main.js";
+
 //funktsioon ostukorvi vaateks
 export const displayCartView = (cart) => {
   //html osa
@@ -13,10 +16,11 @@ export const displayCartView = (cart) => {
   }
   displayCartView.innerHTML += ` <div class="favoriteAllText">
           <p class="favoriteTitle">Ostukorv</p>
-          <p>Tooteid kokku ${cartLenght.length}</p>
+          <p id="allProductsCount">Tooteid kokku ${cart.totalItems}</p>
         </div>`;
   //toodete info automaatseks kuvamiseks
   let i = -1;
+
   //toodete kuvamine
   cartLenght.forEach((product) => {
     i++;
@@ -37,10 +41,10 @@ export const displayCartView = (cart) => {
             </div>
             <div class="cartButtons">
               <button>eemalda ese</button>
-               <div>
-              <button>-</button>
-              <label for="">placeholder</label>
-              <button>+</button>
+               <div id="${i}">
+              <button id="minusButton" >-</button>
+                <span id="${cart.items[i].product.id}">${cart.items[i].quantity}</span>
+              <button id="plusButton" >+</button>
               </div>
             </div>
           </div>
@@ -57,37 +61,32 @@ export const displayCartView = (cart) => {
           </div>
           <button class="osta">osta</button>
         </div>`;
+  const plusbutton = document.getElementById("plusButton");
+  const index = document.getElementById(i);
+
+  plusbutton.onclick = () => {
+    console.log(index.id);
+    cart.addProduct(cart.items[index.id], 1);
+
+    upDate();
+  };
+
+  const minusButton = document.getElementById("minusButton");
+  minusButton.onclick = () => {
+    if (cart.items[i].quantity > 0) {
+      cart.removeProduct(cart.items[i].product, 1);
+      console.log(cart);
+    }
+    upDate();
+  };
+
+  function upDate() {
+    console.log(cart.items[i].product.id);
+    const specificCount = document.getElementById(cart.items[i].product.id);
+    const allProductsCount = document.getElementById("allProductsCount");
+    specificCount.innerHTML = ` `;
+    specificCount.innerHTML = `${cart.items[i].quantity}`;
+    allProductsCount.innerHTML = ``;
+    allProductsCount.innerHTML += ` Tooteid kokku ${cart.totalItems}`;
+  }
 };
-/* <div class="ostukorvForEach">
-          <div class="eseKorvis">
-            <div>
-              <img
-                src="assets/Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops.png"
-                alt=""
-              />
-            </div>
-            <div>
-              <p>${product.title}</p>
-              <p>${product.category}</p>
-              <p>${product.price}</p>
-            </div>
-            <div>
-              <button>eemalda ese</button>
-              <button>-</button>
-              <label for="">placeholder</label>
-              <button>+</button>
-            </div>
-          </div>
-        </div>
-        <!-- ostukorvi footer??? -->
-        <div class="ostukorviFooter">
-          <div class="kakskordakolm">
-            <p>vahesumma</p>
-            <p>300</p>
-            <p>soodukas:</p>
-            <p>20%</p>
-            <p>kokku</p>
-            <p>200000</p>
-          </div>
-          <button class="osta">osta</button>
-        </div> */

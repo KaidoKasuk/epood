@@ -1,3 +1,4 @@
+import { cart } from "../constructors/cart.js";
 export const displayAllProductsView = (products) => {
   //võtan htmli
   const displayAllProductsView = document.getElementById("product");
@@ -9,7 +10,7 @@ export const displayAllProductsView = (products) => {
   displayAllProductsView.appendChild(wrapper);
   //for eaching iga toote kaardi
   products.forEach((product) => {
-    wrapper.innerHTML += ` <div class="oneProduct" id="${product.id}">
+    wrapper.innerHTML += ` <div data-id="${product.id}" class="oneProduct"> 
             <label class="heartWrapper">
              <input type="checkbox" class="heartLabel">
               <svg
@@ -58,10 +59,9 @@ export const displayAllProductsView = (products) => {
                 <p>4.2 (120)</p>
               </div>
               ${product.price}$
-              <button class="buyButton">buy</button>
+              <button id=${product.id} class="buyButton">buy</button>
             </div>
           </div>
-          
         `;
   });
 };

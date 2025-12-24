@@ -1,7 +1,7 @@
 import { Product } from "./constructors/product.js";
 
 import { Cart } from "./constructors/cart.js";
-
+import { cart } from "./constructors/cart.js";
 import { Customer } from "./constructors/customer.js";
 
 import { Order } from "./constructors/order.js";
@@ -17,38 +17,28 @@ export const Products = [
   new Product(1, "Sülearvuti", 999.99, "Elektroonika"),
   new Product(2, "Telefon", 599.99, "Elektroonika"),
   new Product(3, "Seljakott", 100.99, "riided"),
-  new Product(4, "Maci halb hiir", 100.99, "riided"),
-  new Product(5, "Wallet", 100.99, "riided"),
-  new Product(6, "Söögitool", 100.99, "riided"),
-  new Product(7, "Joogipudel", 100.99, "riided"),
+  new Product(4, "Maci halb hiir", 1000.99, "riided"),
+  new Product(5, "Wallet", 50.99, "aksesuaarid"),
+  new Product(6, "Söögitool", 100.99, "mööbel"),
+  new Product(7, "Joogipudel", 100.99, "aksesuaarid"),
   new Product(8, "Hea Laadia", 100.99, "Elektroonika"),
-  new Product(9, "Wallet", 100.99, "riided"),
-  new Product(10, "Söögitool", 100.99, "riided"),
-  new Product(11, "Joogipudel", 100.99, "riided"),
-  new Product(12, "Hea Laadia", 100.99, "Elektroonika"),
-  new Product(13, "Wallet", 100.99, "riided"),
-  new Product(14, "Söögitool", 100.99, "riided"),
-  new Product(15, "Joogipudel", 100.99, "riided"),
-  new Product(16, "Hea Laadia", 100.99, "Elektroonika"),
 ];
 
-// Loo ostukorv ja lisa tooted
-const cart = new Cart();
-cart.addProduct(Products[0], 2); // et toodet saada pead votma selle arrayst product, quantity
-cart.addProduct(Products[1], 3);
-console.log(cart);
+// cart.addProduct(Products[0], 2); // et toodet saada pead votma selle arrayst product, quantity
+// cart.addProduct(Products[1], 3);
+// console.log(cart);
 console.log(Products[1].describe());
 
-const order = new Order("29.11.25", cart);
-console.log(order.printOrder());
-console.log("Kogusumma:", cart.calculateTotal());
-console.log("Kokku tooteid ostukorvis:", cart.totalItems);
+// const order = new Order("29.11.25", cart);
+// console.log(order.printOrder());
+// console.log("Kogusumma:", cart.calculateTotal());
+// console.log("Kokku tooteid ostukorvis:", cart.totalItems);
 
 // Loo klient ja esita tellimus
 const customer = new Customer("Alice");
 
 // console.log(order.printOrder());
-customer.placeOrder(cart);
+// customer.placeOrder(cart);
 
 // Kuvage tellimuste ajalugu
 customer.printOrderHistory();
@@ -69,7 +59,11 @@ const homeButton = document.getElementById("toHomeButton");
 const cartButton = document.getElementById("toCartButton");
 const favoriteButton = document.getElementById("toFavoriteButton");
 const detailViewButton = document.getElementById(`${product.id}`);
-
+//- - - - -- - - - -- - MAIN VAATES NUPUD - - -- - - -- //
+// const addToCartButton = document.getElementById("addToCartButton");
+const addToFavoritesButton = document.getElementById("addToFavoritesButton");
+//- - - - -- - - - -- - DETAIL VAATES NUPUD - - -- - - -- //
+//navigatsiooni menüü nupud
 cartButton.addEventListener("click", (event) => {
   allProductsnavigate(displayCartView(cart));
 });
@@ -80,7 +74,33 @@ favoriteButton.addEventListener("click", (event) => {
   allProductsnavigate(displayFavorites(customer));
 });
 
-// // // // detailViewButton.addEventListener("click", (event) => {
-// // // //   const index = Number(event.target.id) - 1;
-// // // //   allProductsnavigate(displayDetailView(Products[index]));
-// // // // });
+//toote kaardil sündumused
+document.addEventListener("click", (event) => {
+  const card = event.target.closest(".oneProduct");
+  if (!card) return; //et iga kord event ei toimuks
+
+  const id = Number(card.dataset.id);
+
+  if (event.target.closest(".heartWrapper")) return; //et südamel ei toimuks
+
+  if (event.target.closest("button")) {
+    cart.addProduct(Products[id - 1], 1);
+    return;
+  }
+
+  displayDetailView(Products[id - 1]);
+});
+
+//- -- - - -- - - -detail vaates nupud -------------//
+
+// tagasi nupp
+document.addEventListener("click", (event) => {
+  if (event.target.id === "backButton") {
+    allProductsnavigate(displayAllProductsView(Products));
+  }
+});
+
+// lisa ostukorvi nupp
+
+// cart.addProduct(Products[1], 1);
+console.log(cart);

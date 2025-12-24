@@ -1,7 +1,9 @@
+import { cart } from "../constructors/cart.js ";
+
 export const displayDetailView = (product) => {
   const detailView = document.getElementById("product");
   detailView.innerHTML = "";
-  detailView.innerHTML += `<button class="tagasi">tagasi</button>
+  detailView.innerHTML += `<button id="backButton" class="tagasi">tagasi</button>
         <div class="detailView">
           <div>
             <img
@@ -11,14 +13,19 @@ export const displayDetailView = (product) => {
           </div>
           <!-- all text -->
           <div>
-            ${product.category}
+           <p> ${product.category}</p>
             <p>${product.title}</p>
             <p>${product.price}</p>
             <p>kirjeldus looorem</p>
             <div class="buttons">
-              <button class="addToCart">lisa ostukorvi</button
-              ><button class="addToLiked">lisa lemmikuks</button>
+              <button    id="detailViewAddToCartButton" class="addToCart">lisa ostukorvi</button
+              ><button  id="addToFavoritesButton" class="addToLiked">lisa lemmikuks</button>
             </div>
           </div>
         </div>`;
+
+  detailViewAddToCartButton.onclick = () => {
+    cart.addProduct(product, 1);
+    console.log(cart);
+  };
 };
