@@ -1,5 +1,6 @@
 import { cart } from "../constructors/cart.js ";
-
+import { customer } from "../constructors/customer.js";
+import { Product } from "../constructors/product.js";
 export const displayDetailView = (product) => {
   const detailView = document.getElementById("product");
   detailView.innerHTML = "";
@@ -19,13 +20,25 @@ export const displayDetailView = (product) => {
             <p>kirjeldus looorem</p>
             <div class="buttons">
               <button    id="detailViewAddToCartButton" class="addToCart">lisa ostukorvi</button
-              ><button  id="addToFavoritesButton" class="addToLiked">lisa lemmikuks</button>
+              ><button  id="addToFavoritesButton" class="addToLiked"></button>
             </div>
           </div>
         </div>`;
+  const favoriteButton = document.getElementById("addToFavoritesButton");
 
+  const isActive = customer.isActive(product);
+  if (isActive) {
+    favoriteButton.innerHTML = "eemalda lemmikutest";
+  } else if (!isActive) {
+    favoriteButton.innerHTML = "lisa Lemmikutesse";
+  }
   detailViewAddToCartButton.onclick = () => {
     cart.addProduct(product, 1);
-    console.log(cart);
+  };
+  addToFavoritesButton.onclick = () => {
+    console.log(product);
+    customer.addFavorite(product, customer);
+    displayDetailView(product);
+    console.log("display check");
   };
 };

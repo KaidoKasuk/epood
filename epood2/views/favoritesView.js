@@ -1,3 +1,4 @@
+import { Product } from "../constructors/product.js";
 //funktsioon ostukorvi vaateks
 export const displayFavorites = (customer) => {
   //html osa
@@ -21,16 +22,25 @@ export const displayFavorites = (customer) => {
   const favoriteWrapper = document.createElement("div");
   favoriteWrapper.className = "favoritesWrapper";
   displayFavorites.appendChild(favoriteWrapper);
+
   //toodete kuvamine
+
   let i = -1;
   favoriteLenght.forEach((product) => {
+    const isActive = customer.isActive(product);
+
     i++;
-    favoriteWrapper.innerHTML += `<div >
-          <div class="oneProduct">
-            <label class="heartWrapper">
-              <input type="checkbox" class="heartLabel" />
-              <svg
-                class="heartInProduct"
+    favoriteWrapper.innerHTML += ` <div data-id="${
+      product.id
+    }" class="oneProduct"> 
+            <label  id="${customer.favorites[i]}" class="heartWrapper">
+             <input type="checkbox" ${
+               isActive ? "checked" : ""
+             } class="heartLabel" >
+              <svg class="YouAreInFavoriteView heartInProduct ${
+                isActive ? "active" : ""
+              }"
+              
                 xmlns="http://www.w3.org/2000/svg"
                 width="40"
                 height="40"
@@ -53,8 +63,8 @@ export const displayFavorites = (customer) => {
             />
 
             <div>
-              <h5>${customer.favorites[i].category}</h5>
-              <p class="productTitle">${customer.favorites[i].title}</p>
+              <h5>${product.category}</h5>
+              <p class="productTitle">${product.title}</p>
               <div class="score">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -74,43 +84,10 @@ export const displayFavorites = (customer) => {
                 </svg>
                 <p>4.2 (120)</p>
               </div>
-              ${customer.favorites[i].price}$
-              <button class="buyButton">buy</button>
+              ${product.price}$
+              <button id=${product.id} class="buyButton">buy</button>
             </div>
           </div>
-        </div>`;
+        `;
   });
 };
-/* <div class="ostukorvForEach">
-          <div class="eseKorvis">
-            <div>
-              <img
-                src="assets/Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops.png"
-                alt=""
-              />
-            </div>
-            <div>
-              <p>${product.title}</p>
-              <p>${product.category}</p>
-              <p>${product.price}</p>
-            </div>
-            <div>
-              <button>eemalda ese</button>
-              <button>-</button>
-              <label for="">placeholder</label>
-              <button>+</button>
-            </div>
-          </div>
-        </div>
-        <!-- ostukorvi footer??? -->
-        <div class="ostukorviFooter">
-          <div class="kakskordakolm">
-            <p>vahesumma</p>
-            <p>300</p>
-            <p>soodukas:</p>
-            <p>20%</p>
-            <p>kokku</p>
-            <p>200000</p>
-          </div>
-          <button class="osta">osta</button>
-        </div> */

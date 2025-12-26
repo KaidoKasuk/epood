@@ -15,12 +15,37 @@ class Customer {
     console.log(this.orderHistory);
   }
   //favorties
-  addFavorite(item) {
-    this.favorites.push(item);
+  addFavorite(product, customer) {
+    const existing = customer.favorites.includes(product);
+    if (!existing) {
+      this.favorites.push(product);
+      return;
+    }
+    if (existing) {
+      this.favorites.pop(product);
+      console.log("popped");
+
+      return;
+    }
+  }
+  isActive(product) {
+    const existing = customer.favorites.includes(product);
+    console.log(`${product} is  ${existing}`);
+    return existing;
+  }
+  removeFavorite(product, customer) {
+    const existing = customer.favorites.includes(product);
+
+    if (existing) {
+      this.favorites.pop(product);
+      console.log("popped");
+
+      return;
+    }
   }
   getFavorites() {
     return this.favorites;
   }
 }
-
 export { Customer };
+export const customer = new Customer("Alice");

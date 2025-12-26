@@ -1,4 +1,5 @@
 import { cart } from "../constructors/cart.js";
+import { customer } from "../constructors/customer.js";
 export const displayAllProductsView = (products) => {
   //võtan htmli
   const displayAllProductsView = document.getElementById("product");
@@ -10,11 +11,15 @@ export const displayAllProductsView = (products) => {
   displayAllProductsView.appendChild(wrapper);
   //for eaching iga toote kaardi
   products.forEach((product) => {
+    //lemmikute kuvamiseks loogika
+    const isActive = customer.isActive(product);
     wrapper.innerHTML += ` <div data-id="${product.id}" class="oneProduct"> 
-            <label class="heartWrapper">
-             <input type="checkbox" class="heartLabel">
-              <svg
-              class="heartInProduct"
+            <label  id="${product.id}" class="heartWrapper">
+             <input type="checkbox" ${
+               isActive ? "checked" : ""
+             } class="heartLabel" >
+              <svg class="heartInProduct ${isActive ? "active" : ""}"
+              
                 xmlns="http://www.w3.org/2000/svg"
                 width="40"
                 height="40"

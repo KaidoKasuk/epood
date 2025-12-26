@@ -1,9 +1,7 @@
 import { Product } from "./constructors/product.js";
-
-import { Cart } from "./constructors/cart.js";
 import { cart } from "./constructors/cart.js";
 import { Customer } from "./constructors/customer.js";
-
+import { customer } from "./constructors/customer.js";
 import { Order } from "./constructors/order.js";
 
 import { displayAllProductsView } from "./views/allProductsView.js";
@@ -34,19 +32,10 @@ console.log(Products[1].describe());
 // console.log("Kogusumma:", cart.calculateTotal());
 // console.log("Kokku tooteid ostukorvis:", cart.totalItems);
 
-// Loo klient ja esita tellimus
-const customer = new Customer("Alice");
-
-// console.log(order.printOrder());
-// customer.placeOrder(cart);
-
 // Kuvage tellimuste ajalugu
-customer.printOrderHistory();
+// customer.printOrderHistory();
 
-// Praeguseks hardcoded lemmikud
-customer.addFavorite(Products[0]);
-customer.addFavorite(Products[1]);
-console.log(customer);
+// console.log(customer);
 
 //-----------------------VAATED---------------//
 // displayAllProductsView(Products);
@@ -74,21 +63,22 @@ favoriteButton.addEventListener("click", (event) => {
   allProductsnavigate(displayFavorites(customer));
 });
 
-//toote kaardil sündumused
+//- - - - -- - - - -- - MAIN VAATES KAARDIL NUPUD - - -- - - -- //
 document.addEventListener("click", (event) => {
   const card = event.target.closest(".oneProduct");
   if (!card) return; //et iga kord event ei toimuks
 
   const id = Number(card.dataset.id);
 
-  if (event.target.closest(".heartWrapper")) return; //et südamel ei toimuks
-
+  if (event.target.closest(".heartWrapper")) {
+    return;
+  }
   if (event.target.closest("button")) {
     cart.addProduct(Products[id - 1], 1);
     return;
+  } else {
+    displayDetailView(Products[id - 1]);
   }
-
-  displayDetailView(Products[id - 1]);
 });
 
 //- -- - - -- - - -detail vaates nupud -------------//
@@ -100,7 +90,60 @@ document.addEventListener("click", (event) => {
   }
 });
 
-// lisa ostukorvi nupp
+// - - --------OSTUKORV VAATES NUPUD- ------ //
+document.addEventListener("click", (event) => {
+  if (event.target.closest(".plusbutton")) {
+    console.log("plusbutton happend");
+    //toote id mis cart.js läheb
+    const productId = event.target.dataset.productId;
+    console.log(productId);
+    cart.addProduct(Products[productId - 1], 1);
+    //värskendab lehte, vist halb variant aga töötab :D
+    allProductsnavigate(displayCartView(cart));
+  }
+  if (event.target.closest(".minusbutton")) {
+    console.log("minusbutton happend");
+    const productId = event.target.dataset.productId;
 
-// cart.addProduct(Products[1], 1);
-console.log(cart);
+    cart.removeProduct(Products[productId - 1], 1);
+    allProductsnavigate(displayCartView(cart));
+    console.log(cart);
+  }
+  if (event.target.closest(".removeproduct")) {
+    console.log("product removed");
+    const productId = event.target.dataset.productId;
+    cart.deleteProduct(Products[productId - 1]);
+    allProductsnavigate(displayCartView(cart));
+    console.log(cart);
+  }
+});
+// - - -- -- - - -- Lemmikud- - - -- - - //
+
+document.addEventListener("change", (event) => {
+  if (!event.target.matches(".heartLabel")) return;
+
+  const card = event.target.closest(".oneProduct");
+  const svg = card.querySelector("svg");
+  const id = Number(card.dataset.id);
+  const product = Products[id - 1];
+  const checkbox = event.target;
+
+  if (event.target.checked) {
+    customer.addFavorite(product, customer);
+
+    // get the svg next to the input
+    const svg = checkbox.nextElementSibling;
+
+    if (!svg) return;
+
+    svg.classList.toggle("active", checkbox.checked);
+  } else {
+    console.log("else happened");
+    customer.removeFavorite(product, customer);
+    svg.classList.toggle("active", checkbox.checked);
+  }
+
+  if (svg.classList.contains("YouAreInFavoriteView")) {
+    allProductsnavigate(displayFavorites(customer));
+  }
+});
