@@ -10,6 +10,7 @@ class Customer {
     const order = new Order(new Date().toLocaleDateString(), cart);
 
     this.orderHistory.push(order);
+    customer.printOrderHistory();
   }
   printOrderHistory() {
     console.log(this.orderHistory);
@@ -23,14 +24,13 @@ class Customer {
     }
     if (existing) {
       this.favorites.pop(product);
-      console.log("popped");
 
       return;
     }
   }
   isActive(product) {
     const existing = customer.favorites.includes(product);
-    console.log(`${product} is  ${existing}`);
+
     return existing;
   }
   removeFavorite(product, customer) {
@@ -38,7 +38,7 @@ class Customer {
 
     if (existing) {
       this.favorites.pop(product);
-      console.log("popped");
+      // console.log("popped");
 
       return;
     }

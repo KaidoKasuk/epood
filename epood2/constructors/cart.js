@@ -32,7 +32,7 @@ class Cart {
   }
   deleteProduct(product) {
     const existing = this.items.find((item) => item.product.id === product.id);
-    console.log(existing.quantity);
+    // console.log(existing.quantity);
 
     this.items = this.items.filter((item) => item.product.id !== product.id);
   }

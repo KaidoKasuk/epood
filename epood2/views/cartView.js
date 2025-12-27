@@ -1,6 +1,6 @@
 import { cart } from "../constructors/cart.js";
 import { Products } from "../main.js";
-
+import { customer, Customer } from "../constructors/customer.js";
 //funktsioon ostukorvi vaateks
 export const displayCartView = (cart) => {
   //html osa
@@ -11,12 +11,13 @@ export const displayCartView = (cart) => {
   const cartLenght = cart.getAllProducts();
   //kui ostukorv tuhi
   if (cartLenght.length === 0) {
-    displayCartView.innerHTML = `<p>Ostukorv on tuhi</p>`;
+    displayCartView.innerHTML = `<p id="emptyCart" >Ostukorv on tuhi</p>`;
     return;
   }
   displayCartView.innerHTML += ` <div class="favoriteAllText">
           <p class="favoriteTitle">Ostukorv</p>
           <p id="allProductsCount">Tooteid kokku ${cart.totalItems}</p>
+          
         </div>`;
   //toodete info automaatseks kuvamiseks
   let i = -1;
@@ -51,6 +52,7 @@ export const displayCartView = (cart) => {
         </div>`;
   });
   displayCartView.innerHTML += `<div class="ostukorviFooter">
+  <button id="clearAll" >Kustuda kõik tooted💀</button>
           <div class="kakskordakolm">
             <p>vahesumma</p>
             <p>${cart.calculateTax()}</p>
@@ -59,8 +61,11 @@ export const displayCartView = (cart) => {
             <p>kokku</p>
             <p>${cart.calculateTotal()}</p>
           </div>
-          <button class="osta">osta</button>
+          <button id="finalBuy" class="osta">osta</button>
         </div>`;
 
   const index = document.getElementById(i);
+  finalBuy.onclick = () => {
+    customer.placeOrder(cart);
+  };
 };

@@ -1,25 +1,46 @@
 body {
   margin: 0;
 }
+/* -------- header- - - - -- - - - -- - -- */
 #header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin: 0;
-  /* padding-bottom: 20lvh; */
   padding: 2lvh;
   background-color: rgb(193, 193, 193);
   margin-bottom: 10lvh;
 }
-/* produktid eraldi, peavaade */
+#header-text-side {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+#homeButton {
+  width: 40px;
+  height: 40px;
+}
+h2 {
+  margin: 10 px;
+}
+#header-text {
+  display: grid;
+}
+/* ------- --produktid eraldi, peavaade -- - - - - - - */
+main {
+  min-height: 100vh;
+  display: grid;
+  align-items: center;
+}
 .allProductsWrapper {
   display: flex;
-  gap: 20px;
+  gap: 50px;
   flex-flow: row;
   flex-wrap: wrap;
   justify-content: center;
-  margin-right: 20lvh;
-  margin-left: 20lvh;
+  margin-right: 30lvh;
+  margin-left: 30lvh;
 }
 h5 {
   text-align: left;
@@ -82,27 +103,50 @@ h5 {
 .buyButton:active {
   background-color: white;
 }
-/* detail vaade */
-
+/* - - - -- - -- -- --- -- detail vaade   -- - - -- - -- - - */
+.detailWrapper {
+  display: flex;
+  background-color: aliceblue;
+  margin: 0 2rem 0 2rem;
+  gap: 50lvh;
+}
 .detailView {
   display: flex;
-  font-size: 20px;
+  font-size: 25px;
 }
+
 .addToCart {
   background-color: blue;
   color: white;
-  font-size: 20px;
+  font-size: 25px;
   border-radius: 5px;
   border: none;
+}
+#pictureDiv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-right: 3rem;
+}
+#backButton {
+  display: flex;
+  max-height: 30px;
+  margin: 2rem;
+  font-size: 20px;
+  background-color: aliceblue;
+}
+#backButton:hover {
+  background-color: rgb(197, 228, 255);
 }
 .buttons {
   display: flex;
   gap: 10px;
+  margin-bottom: 25px;
 }
 .addToLiked {
   background-color: rgb(255, 0, 195);
   color: white;
-  font-size: 20px;
+  font-size: 25px;
   border-radius: 5px;
   border: none;
 }
@@ -112,7 +156,7 @@ h5 {
 .addToCart:hover {
   background-color: rgb(2, 21, 141);
 }
-/* ostukorv */
+/* - - - -- - - -- - - - -- ---ostukorv - - -- - ---- - -----*/
 .esekorvis {
   display: flex;
   padding: 0lvh 0lvh 4lvh 4lvh;
@@ -153,8 +197,23 @@ h5 {
   display: flex;
   padding-top: 30px;
 }
+#emptyCart {
+  display: flex;
+  font-size: large;
+  justify-self: center;
+}
+.ostukorviFooter {
+  display: grid;
+}
+#clearAll {
+  background-color: red;
+  border: none;
+  padding: 10px;
+  justify-content: center;
+  margin: 0 30vh 0 30vh;
+}
 
-/* Lemmikute vaade */
+/* -- -- - ------- - - -Lemmikute vaade - - - --  -- - -*/
 .favoritesWrapper {
   display: flex;
   gap: 20px;
@@ -175,4 +234,14 @@ h5 {
   display: flex;
   font-size: large;
   justify-self: center;
+}
+/* - - - - - -- FOOTER - - -- - - - -- - */
+footer {
+  margin-top: 4lvh;
+  background-color: rgb(193, 193, 193);
+  min-height: 40lvh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15lvh;
 }

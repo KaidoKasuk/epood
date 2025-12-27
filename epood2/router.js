@@ -1,7 +1,7 @@
-import { displayAllProductsView } from "./epood2/views/allProductsView.js";
-import { displayDetailView } from "./epood2/views/productDetailView.js";
-import { displayCartView } from "./epood2/views/cartView.js";
-import { displayFavorites } from "./epood2/views/favoritesView.js";
+import { displayAllProductsView } from "./views/allProductsView.js";
+import { displayDetailView } from "./views/productDetailView.js";
+import { displayCartView } from "./views/cartView.js";
+import { displayFavorites } from "./views/favoritesView.js";
 
 export const allProductsnavigate = (view, param) => {
   const views = {

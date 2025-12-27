@@ -9,7 +9,7 @@ import { displayDetailView } from "./views/productDetailView.js";
 import { displayCartView } from "./views/cartView.js";
 import { displayFavorites } from "./views/favoritesView.js";
 
-import { allProductsnavigate } from "/router.js";
+import { allProductsnavigate } from "./router.js";
 // Loo mõned tooted
 export const Products = [
   new Product(1, "Sülearvuti", 999.99, "Elektroonika"),
@@ -25,7 +25,7 @@ export const Products = [
 // cart.addProduct(Products[0], 2); // et toodet saada pead votma selle arrayst product, quantity
 // cart.addProduct(Products[1], 3);
 // console.log(cart);
-console.log(Products[1].describe());
+// console.log(Products[1].describe());
 
 // const order = new Order("29.11.25", cart);
 // console.log(order.printOrder());
@@ -65,6 +65,10 @@ favoriteButton.addEventListener("click", (event) => {
 
 //- - - - -- - - - -- - MAIN VAATES KAARDIL NUPUD - - -- - - -- //
 document.addEventListener("click", (event) => {
+  //logo peale nupu vajutus
+  if (event.target.closest("#homebutton")) {
+    allProductsnavigate(displayAllProductsView(Products));
+  }
   const card = event.target.closest(".oneProduct");
   if (!card) return; //et iga kord event ei toimuks
 
@@ -93,16 +97,16 @@ document.addEventListener("click", (event) => {
 // - - --------OSTUKORV VAATES NUPUD- ------ //
 document.addEventListener("click", (event) => {
   if (event.target.closest(".plusbutton")) {
-    console.log("plusbutton happend");
+    // console.log("plusbutton happend");
     //toote id mis cart.js läheb
     const productId = event.target.dataset.productId;
-    console.log(productId);
+    // console.log(productId);
     cart.addProduct(Products[productId - 1], 1);
     //värskendab lehte, vist halb variant aga töötab :D
     allProductsnavigate(displayCartView(cart));
   }
   if (event.target.closest(".minusbutton")) {
-    console.log("minusbutton happend");
+    // console.log("minusbutton happend");
     const productId = event.target.dataset.productId;
 
     cart.removeProduct(Products[productId - 1], 1);
@@ -110,11 +114,15 @@ document.addEventListener("click", (event) => {
     console.log(cart);
   }
   if (event.target.closest(".removeproduct")) {
-    console.log("product removed");
+    // console.log("product removed");
     const productId = event.target.dataset.productId;
     cart.deleteProduct(Products[productId - 1]);
     allProductsnavigate(displayCartView(cart));
-    console.log(cart);
+    // console.log(cart);
+  }
+  if (event.target.closest("#clearAll")) {
+    cart.clearAllItems();
+    allProductsnavigate(displayCartView(cart));
   }
 });
 // - - -- -- - - -- Lemmikud- - - -- - - //
@@ -131,14 +139,13 @@ document.addEventListener("change", (event) => {
   if (event.target.checked) {
     customer.addFavorite(product, customer);
 
-    // get the svg next to the input
     const svg = checkbox.nextElementSibling;
 
     if (!svg) return;
 
     svg.classList.toggle("active", checkbox.checked);
   } else {
-    console.log("else happened");
+    // console.log("else happened");
     customer.removeFavorite(product, customer);
     svg.classList.toggle("active", checkbox.checked);
   }

@@ -2,11 +2,17 @@ import { cart } from "../constructors/cart.js ";
 import { customer } from "../constructors/customer.js";
 import { Product } from "../constructors/product.js";
 export const displayDetailView = (product) => {
+  //lisan ekstra divi css jaoks
+  const detailWrapper = document.createElement("div");
+  detailWrapper.className = "detailWrapper";
   const detailView = document.getElementById("product");
   detailView.innerHTML = "";
-  detailView.innerHTML += `<button id="backButton" class="tagasi">tagasi</button>
+  detailView.appendChild(detailWrapper);
+
+  detailWrapper.innerHTML = "";
+  detailWrapper.innerHTML += `<button id="backButton" class="tagasi">tagasi</button>
         <div class="detailView">
-          <div>
+          <div id="pictureDiv">
             <img
               src="./assets/Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops.png"
               alt=""
@@ -36,9 +42,7 @@ export const displayDetailView = (product) => {
     cart.addProduct(product, 1);
   };
   addToFavoritesButton.onclick = () => {
-    console.log(product);
     customer.addFavorite(product, customer);
     displayDetailView(product);
-    console.log("display check");
   };
 };
