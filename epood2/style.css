@@ -157,9 +157,12 @@ h5 {
   background-color: rgb(2, 21, 141);
 }
 /* - - - -- - - -- - - - -- ---ostukorv - - -- - ---- - -----*/
-.esekorvis {
+.cartWrapper {
+  margin-right: 5lvh;
+  margin-left: 5lvh;
+}
+.eseKorvis {
   display: flex;
-  padding: 0lvh 0lvh 4lvh 4lvh;
   justify-content: space-between;
   background-color: rgb(255, 248, 235);
   border: 1px solid;
@@ -195,7 +198,8 @@ h5 {
 }
 .leftSide {
   display: flex;
-  padding-top: 30px;
+  padding: 10px;
+  max-width: 50lvh;
 }
 #emptyCart {
   display: flex;
