@@ -21,8 +21,7 @@ export const displayCartView = (cart) => {
         </div>`;
   //toodete info automaatseks kuvamiseks
   let i = -1;
-  //kustudada eelmine vaade
-  displayCartView.innerHTML = "";
+
   //lisan ekstra divi css jaoks
   const cartWrapper = document.createElement("div");
   cartWrapper.className = "cartWrapper";

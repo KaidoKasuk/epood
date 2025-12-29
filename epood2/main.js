@@ -96,7 +96,7 @@ document.addEventListener("click", (event) => {
 
 // - - --------OSTUKORV VAATES NUPUD- ------ //
 document.addEventListener("click", (event) => {
-  if (event.target.closest(".plusbutton")) {
+  if (event.target.closest(".plusButton")) {
     // console.log("plusbutton happend");
     //toote id mis cart.js läheb
     const productId = event.target.dataset.productId;
@@ -105,7 +105,7 @@ document.addEventListener("click", (event) => {
     //värskendab lehte, vist halb variant aga töötab :D
     allProductsnavigate(displayCartView(cart));
   }
-  if (event.target.closest(".minusbutton")) {
+  if (event.target.closest(".minusButton")) {
     // console.log("minusbutton happend");
     const productId = event.target.dataset.productId;
 
@@ -113,7 +113,7 @@ document.addEventListener("click", (event) => {
     allProductsnavigate(displayCartView(cart));
     console.log(cart);
   }
-  if (event.target.closest(".removeproduct")) {
+  if (event.target.closest(".removeProduct")) {
     // console.log("product removed");
     const productId = event.target.dataset.productId;
     cart.deleteProduct(Products[productId - 1]);
