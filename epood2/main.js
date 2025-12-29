@@ -66,7 +66,7 @@ favoriteButton.addEventListener("click", (event) => {
 //- - - - -- - - - -- - MAIN VAATES KAARDIL NUPUD - - -- - - -- //
 document.addEventListener("click", (event) => {
   //logo peale nupu vajutus
-  if (event.target.closest("#homebutton")) {
+  if (event.target.closest("#homeButton")) {
     allProductsnavigate(displayAllProductsView(Products));
   }
   const card = event.target.closest(".oneProduct");
