@@ -13,7 +13,7 @@ import { allProductsnavigate } from "./router.js";
 //muudan json faili sisu globaalseks
 let toode;
 async function loadProducts() {
-  const data = await fetch("products.json");
+  const data = await fetch("../products.json");
   toode = await data.json();
 }
 await loadProducts();
