@@ -1,6 +1,10 @@
 import { cart } from "../constructors/cart.js";
 import { customer } from "../constructors/customer.js";
+import { getProductsDataByCategory } from "../api.js";
+const products = getProductsDataByCategory();
 export const displayAllProductsView = (products) => {
+  //toon tooted
+
   //võtan htmli
   const displayAllProductsView = document.getElementById("product");
   //kustudada eelmine vaade

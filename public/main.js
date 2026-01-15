@@ -10,22 +10,26 @@ import { displayCartView } from "./views/cartView.js";
 import { displayFavorites } from "./views/favoritesView.js";
 
 import { allProductsnavigate } from "./router.js";
+//backendist
+
 //muudan json faili sisu globaalseks
-let toode;
-async function loadProducts() {
-  const data = await fetch("../products.json");
-  toode = await data.json();
-}
-await loadProducts();
+// let toode;
+// async function loadProducts() {
+//   const data = await fetch("/data/products.json");
+//   toode = await data.json();
+// }
+// await loadProducts();
+
+const initApp = () => {};
 
 // tooted
 const Products = [];
 //pushin tooted
-toode.forEach((toode) =>
-  Products.push(new Product(toode.id, toode.title, toode.price, toode.category))
-);
+// toode.forEach((toode) =>
+//   Products.push(new Product(toode.id, toode.title, toode.price, toode.category))
+// );
 
-export { Products };
+// export { Products };
 
 // Products.push(value);
 // cart.addProduct(Products[0], 2); // et toodet saada pead votma selle arrayst product, quantity
@@ -160,3 +164,6 @@ document.addEventListener("change", (event) => {
     allProductsnavigate(displayFavorites(customer));
   }
 });
+
+//dom kuulamine
+document.addEventListener("DOMContentLoaded", initApp);

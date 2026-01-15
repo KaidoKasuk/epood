@@ -1,5 +1,5 @@
 import { cart } from "../constructors/cart.js";
-import { Products } from "../main.js";
+// import { Products } from "../main.js";
 import { customer, Customer } from "../constructors/customer.js";
 //funktsioon ostukorvi vaateks
 export const displayCartView = (cart) => {
