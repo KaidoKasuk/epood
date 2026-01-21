@@ -1,7 +1,11 @@
 import { cart } from "../constructors/cart.js ";
 import { customer } from "../constructors/customer.js";
 import { Product } from "../constructors/product.js";
-export const displayDetailView = (product) => {
+import { getProductsDataByCategory } from "../api.js";
+import { navigate } from "../router.js";
+export const displayDetailView = async (id) => {
+  //toon tooted
+  const products = await getProductsDataByCategory();
   //lisan ekstra divi css jaoks
   const detailWrapper = document.createElement("div");
   detailWrapper.className = "detailWrapper";
@@ -14,16 +18,16 @@ export const displayDetailView = (product) => {
         <div class="detailView">
           <div id="pictureDiv">
             <img
-              src="./assets/Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops.png"
+              src="${products[id].image}"
               alt=""
             />
           </div>
           <!-- all text -->
           <div>
-           <p> ${product.category}</p>
-            <p>${product.title}</p>
-            <p>${product.price}</p>
-            <p>kirjeldus looorem</p>
+           <p> ${products[id].category}</p>
+            <p>${products[id].title}</p>
+            <p>${products[id].price}</p>
+            <p>${products[id].description}</p>
             <div class="buttons">
               <button    id="detailViewAddToCartButton" class="addToCart">lisa ostukorvi</button
               ><button  id="addToFavoritesButton" class="addToLiked"></button>
@@ -45,4 +49,10 @@ export const displayDetailView = (product) => {
     customer.addFavorite(product, customer);
     displayDetailView(product);
   };
+  // tagasi nupp
+  document.addEventListener("click", (event) => {
+    if (event.target.id === "backButton") {
+      navigate("allProducts", "all", false);
+    }
+  });
 };

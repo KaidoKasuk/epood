@@ -1,10 +1,12 @@
 import { cart } from "../constructors/cart.js";
 import { customer } from "../constructors/customer.js";
 import { getProductsDataByCategory } from "../api.js";
-const products = getProductsDataByCategory();
-export const displayAllProductsView = (products) => {
-  //toon tooted
+import { displayDetailView } from "./productDetailView.js";
+import { navigate } from "../router.js";
 
+export const displayAllProductsView = async (category) => {
+  //toon tooted
+  const products = await getProductsDataByCategory();
   //võtan htmli
   const displayAllProductsView = document.getElementById("product");
   //kustudada eelmine vaade
@@ -72,5 +74,56 @@ export const displayAllProductsView = (products) => {
             </div>
           </div>
         `;
+  });
+  //- - - - -- - - - -- - MAIN VAATES KAARDIL NUPUD - - -- - - -- //
+
+  document.addEventListener("click", (event) => {
+    //logo peale nupu vajutus
+    if (event.target.closest("#homeButton")) {
+      navigate("allProducts", "all", false);
+    }
+    const card = event.target.closest(".oneProduct");
+    if (!card) return; //et iga kord event ei toimuks
+
+    const id = Number(card.dataset.id);
+
+    if (event.target.closest(".heartWrapper")) {
+      return;
+    }
+    if (event.target.closest("button")) {
+      cart.addProduct(Products[id - 1], 1);
+      return;
+    } else {
+      displayDetailView(id);
+    }
+  });
+
+  // - - -- -- - - -- Lemmikud- - - -- - - //
+
+  document.addEventListener("change", (event) => {
+    if (!event.target.matches(".heartLabel")) return;
+
+    const card = event.target.closest(".oneProduct");
+    const svg = card.querySelector("svg");
+    const id = Number(card.dataset.id);
+    const product = Products[id - 1];
+    const checkbox = event.target;
+
+    if (event.target.checked) {
+      customer.addFavorite(product, customer);
+
+      const svg = checkbox.nextElementSibling;
+
+      if (!svg) return;
+
+      svg.classList.toggle("active", checkbox.checked);
+    } else {
+      customer.removeFavorite(product, customer);
+      svg.classList.toggle("active", checkbox.checked);
+    }
+
+    if (svg.classList.contains("YouAreInFavoriteView")) {
+      navigate(displayFavorites(customer));
+    }
   });
 };

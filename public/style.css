@@ -53,6 +53,7 @@ h5 {
   text-align: center;
   font-size: large;
   padding-left: 5px;
+  max-width: 200px;
 }
 .oneProduct {
   padding: 5px;
@@ -81,7 +82,9 @@ h5 {
 .heartInProduct {
   fill: none;
   stroke: #0a0a0a;
-  transition: fill 0.2s ease, stroke 0.2s ease;
+  transition:
+    fill 0.2s ease,
+    stroke 0.2s ease;
 }
 
 .heartInProduct.active {
@@ -108,7 +111,7 @@ h5 {
   display: flex;
   background-color: aliceblue;
   margin: 0 2rem 0 2rem;
-  gap: 50lvh;
+  gap: 10lvh;
 }
 .detailView {
   display: flex;
@@ -127,6 +130,13 @@ h5 {
   justify-content: center;
   align-items: center;
   padding-right: 3rem;
+  min-width: 30lvh;
+}
+#pictureDiv img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 20lvh;
 }
 #backButton {
   display: flex;

@@ -72,4 +72,36 @@ export const displayCartView = (cart) => {
   finalBuy.onclick = () => {
     customer.placeOrder(cart);
   };
+
+  // - - --------OSTUKORVI VAATES NUPUD- ------ //
+  document.addEventListener("click", (event) => {
+    if (event.target.closest(".plusButton")) {
+      console.log("plusbutton happend");
+      //toote id mis cart.js läheb
+      const productId = event.target.dataset.productId;
+      // console.log(productId);
+      cart.addProduct(Products[productId - 1], 1);
+      //värskendab lehte, vist halb variant aga töötab :D
+      navigate(displayCartView(cart));
+    }
+    if (event.target.closest(".minusButton")) {
+      // console.log("minusbutton happend");
+      const productId = event.target.dataset.productId;
+
+      cart.removeProduct(Products[productId - 1], 1);
+      navigate(displayCartView(cart));
+      console.log(cart);
+    }
+    if (event.target.closest(".removeProduct")) {
+      // console.log("product removed");
+      const productId = event.target.dataset.productId;
+      cart.deleteProduct(Products[productId - 1]);
+      navigate(displayCartView(cart));
+      // console.log(cart);
+    }
+    if (event.target.closest("#clearAll")) {
+      cart.clearAllItems();
+      navigate(displayCartView(cart));
+    }
+  });
 };

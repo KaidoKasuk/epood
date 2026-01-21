@@ -38,6 +38,23 @@ app.get("/api/products", (req, res) => {
   }
 });
 
+// Endpoint to get categories
+app.get("/api/categories", (req, res) => {
+  try {
+    const rawData = JSON.parse(fs.readFileSync(dataFile, "utf8"));
+    const categories = rawData.map((item) => item.category);
+    const categoriesArray = ["all", ...new Set(categories)];
+
+    if (categoriesArray) {
+      res.status(200).json(categoriesArray);
+    } else {
+      res.status(404).json({ message: "Kategooria lugemine ebaõnnestus" });
+    }
+  } catch (error) {
+    res.status(404).json({ message: "Andmete lugemine ebaõnnestus" });
+  }
+});
+
 //middleware
 app.use(express.static(path.join(__dirname, "public")));
 // Basic route

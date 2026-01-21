@@ -21,8 +21,8 @@ export const getProductsDataByCategory = async (category) => {
           item.price,
           item.category,
           item.description,
-          item.image
-        )
+          item.image,
+        ),
     );
 
     return dataObject;
