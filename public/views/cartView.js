@@ -1,8 +1,11 @@
 import { cart } from "../constructors/cart.js";
-// import { Products } from "../main.js";
 import { customer, Customer } from "../constructors/customer.js";
+import { getProductsDataByCategory } from "../api.js";
+
 //funktsioon ostukorvi vaateks
-export const displayCartView = (cart) => {
+export const displayCartView = async () => {
+  const products = await getProductsDataByCategory();
+
   //html osa
   const displayCartView = document.getElementById("product");
   //kustuda vaated

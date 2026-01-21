@@ -1,6 +1,11 @@
-import { Product } from "../constructors/product.js";
+import { navigate } from "../router.js";
+import { getProductsDataByCategory } from "../api.js";
+
 //funktsioon ostukorvi vaateks
-export const displayFavorites = (customer) => {
+export const displayFavorites = async (customer) => {
+  //toon tooted
+  const products = await getProductsDataByCategory();
+
   //html osa
   const displayFavorites = document.getElementById("product");
   //kustuda vaade

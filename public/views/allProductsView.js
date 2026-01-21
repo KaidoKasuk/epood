@@ -91,7 +91,7 @@ export const displayAllProductsView = async (category) => {
       return;
     }
     if (event.target.closest("button")) {
-      cart.addProduct(Products[id - 1], 1);
+      cart.addProduct(products[id], 1);
       return;
     } else {
       displayDetailView(id);
@@ -106,7 +106,7 @@ export const displayAllProductsView = async (category) => {
     const card = event.target.closest(".oneProduct");
     const svg = card.querySelector("svg");
     const id = Number(card.dataset.id);
-    const product = Products[id - 1];
+    const product = products[id];
     const checkbox = event.target;
 
     if (event.target.checked) {

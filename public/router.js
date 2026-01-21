@@ -11,10 +11,6 @@ export const navigate = (view, param, pushState = true) => {
     favorites: () => displayFavorites(),
   };
 
-  //Vali ja käivita sobiv vaade
-  if (views[view]) {
-    views[view]();
-  }
   const constructUrl = (view, param) => {
     switch (view) {
       case "allProducts":
@@ -29,8 +25,13 @@ export const navigate = (view, param, pushState = true) => {
         return "/";
     }
   };
-  if (pushState) {
-    const url = constructUrl(view, param);
-    window.history.pushState({ view, param }, "", url);
+  //Vali ja käivita sobiv vaade
+  if (views[view]) {
+    views[view]();
+
+    if (pushState) {
+      const url = constructUrl(view, param);
+      window.history.pushState({ view, param }, "", url);
+    }
   }
 };

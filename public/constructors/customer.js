@@ -38,7 +38,7 @@ class Customer {
 
     if (existing) {
       this.favorites.pop(product);
-      // console.log("popped");
+      console.log("popped");
 
       return;
     }

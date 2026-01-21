@@ -37,13 +37,14 @@ const initApp = () => {
 
   //navigatsiooni menüü nupud
   cartButton.addEventListener("click", (event) => {
-    navigate(displayCartView(cart));
+    console.log(cart);
+    navigate("cart", cart);
   });
   homeButton.addEventListener("click", (event) => {
-    navigate(displayAllProductsView(Products));
+    navigate("allProducts");
   });
   favoriteButton.addEventListener("click", (event) => {
-    navigate(displayFavorites(customer));
+    navigate("favorites", customer);
   });
 
   const path = window.location.pathname;
