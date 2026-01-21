@@ -11,6 +11,7 @@ import { displayCartView } from "./views/cartView.js";
 import { displayFavorites } from "./views/favoritesView.js";
 //muu import
 import { navigate } from "./router.js";
+ˇ;
 
 const initApp = () => {
   //muudan json faili sisu globaalseks

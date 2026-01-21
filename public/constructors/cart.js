@@ -10,7 +10,7 @@ class Cart {
 
   addProduct(product, quantity) {
     const existingItem = this.items.find(
-      (item) => item.product.id === product.id
+      (item) => item.product.id === product.id,
     );
     if (existingItem) {
       existingItem.quantity += 1;
