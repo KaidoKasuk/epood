@@ -4,13 +4,67 @@ import { getProductsDataByCategory } from "../api.js";
 import { displayDetailView } from "./productDetailView.js";
 import { navigate } from "../router.js";
 
-export const displayAllProductsView = async (category) => {
-  //toon tooted
-  const products = await getProductsDataByCategory();
+export const displayAllProductsView = async () => {
   //võtan htmli
   const displayAllProductsView = document.getElementById("product");
   //kustudada eelmine vaade
   displayAllProductsView.innerHTML = "";
+  //toon tooted
+  const products = await getProductsDataByCategory("all");
+
+  //kategooriad
+  const categoryArray = [
+    ...new Set(products.map((product) => product.category)),
+  ];
+  const categories = document.createElement("div");
+  displayAllProductsView.appendChild(categories);
+  categories.className = "categories";
+  let i = 0;
+  categories.innerHTML += `<div>
+       <label class="categoryButtons">
+  <input type="radio" name="nameIsTheSame" value="All Products">
+  All Products
+</label>
+      </div>`;
+  categoryArray.forEach((category, i) => {
+    categories.innerHTML += `
+    <label class="categoryButtons">
+      <input 
+        type="radio" 
+        name="nameIsTheSame" 
+        value="${category}"
+      >
+      ${category}
+    </label>
+  `;
+    i++;
+  });
+  function getProductsByCategory(products, selectedCategory) {
+    let newProducts;
+    if (selectedCategory === "All Products") {
+      newProducts = products;
+    } else {
+      newProducts = products.filter(
+        (product) => product.category === selectedCategory,
+      );
+    }
+    showProductsByCategory(newProducts);
+  }
+  categories.addEventListener("change", (e) => {
+    getProductsByCategory(products, e.target.value);
+  });
+
+  function showProductsByCategory(newProducts) {
+    const allProducts = document.querySelectorAll(".oneProduct");
+    allProducts.forEach((card) => {
+      card.classList.add("remove");
+    });
+    newProducts.forEach((product) => {
+      const oneProduct = document.getElementById(product.id);
+      oneProduct.classList.remove("remove");
+    });
+  }
+
   //lisan ekstra divi css jaoks
   const wrapper = document.createElement("div");
   wrapper.className = "allProductsWrapper";
@@ -19,9 +73,10 @@ export const displayAllProductsView = async (category) => {
   products.forEach((product) => {
     //lemmikute kuvamiseks loogika
     const isActive = customer.isActive(product);
-    wrapper.innerHTML += ` <div data-id="${product.id}" class="oneProduct"> 
+    console.log(isActive);
+    wrapper.innerHTML += ` <div data-id="${product.id}"  id="${product.id}" class="oneProduct"> 
             <label  id="${product.id}" class="heartWrapper">
-             <input type="checkbox" ${
+             <input onclick="favoritesHandler()" type="checkbox" ${
                isActive ? "checked" : ""
              } class="heartLabel" >
               <svg class="heartInProduct ${isActive ? "active" : ""}"
@@ -43,7 +98,7 @@ export const displayAllProductsView = async (category) => {
             </label>
             <img
               class="productImage"
-              src="./assets/Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops.png"
+              src="${product.image}"
               alt="Backpack"
             />
 
@@ -70,18 +125,20 @@ export const displayAllProductsView = async (category) => {
                 <p>4.2 (120)</p>
               </div>
               ${product.price}$
-              <button id=${product.id} class="buyButton">buy</button>
+              <button id=${product.id} onclick="plusButton()" class="buyButton">buy</button>
             </div>
           </div>
         `;
   });
-  //- - - - -- - - - -- - MAIN VAATES KAARDIL NUPUD - - -- - - -- //
 
-  document.addEventListener("click", (event) => {
-    //logo peale nupu vajutus
-    if (event.target.closest("#homeButton")) {
-      navigate("allProducts", "all", false);
-    }
+  //- - - - -- - - - -- - MAIN VAATES KAARDIL NUPUD - - -- - - -- //
+  window.plusButton = function () {
+    const card = event.target.closest(".oneProduct");
+    const id = Number(card.dataset.id);
+    cart.addProduct(products[id], 1);
+  };
+
+  displayAllProductsView.addEventListener("click", (event) => {
     const card = event.target.closest(".oneProduct");
     if (!card) return; //et iga kord event ei toimuks
 
@@ -91,39 +148,29 @@ export const displayAllProductsView = async (category) => {
       return;
     }
     if (event.target.closest("button")) {
-      cart.addProduct(products[id], 1);
       return;
     } else {
-      displayDetailView(id);
+      categories.remove();
+      navigate("productDetail", products[id - 1]);
     }
   });
 
   // - - -- -- - - -- Lemmikud- - - -- - - //
-
-  document.addEventListener("change", (event) => {
-    if (!event.target.matches(".heartLabel")) return;
-
+  window.favoritesHandler = function () {
     const card = event.target.closest(".oneProduct");
-    const svg = card.querySelector("svg");
     const id = Number(card.dataset.id);
     const product = products[id];
     const checkbox = event.target;
 
-    if (event.target.checked) {
-      customer.addFavorite(product, customer);
+    const svg = checkbox.nextElementSibling;
+    customer.addFavorite(product, customer);
+    if (!svg) return;
 
-      const svg = checkbox.nextElementSibling;
-
-      if (!svg) return;
-
-      svg.classList.toggle("active", checkbox.checked);
-    } else {
-      customer.removeFavorite(product, customer);
-      svg.classList.toggle("active", checkbox.checked);
-    }
+    svg.classList.toggle("active", checkbox.checked);
 
     if (svg.classList.contains("YouAreInFavoriteView")) {
-      navigate(displayFavorites(customer));
+      navigate("favorites", customer);
     }
-  });
+    console.log(customer);
+  };
 };

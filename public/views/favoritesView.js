@@ -1,8 +1,8 @@
 import { navigate } from "../router.js";
 import { getProductsDataByCategory } from "../api.js";
-
+import { customer } from "../constructors/customer.js";
 //funktsioon ostukorvi vaateks
-export const displayFavorites = async (customer) => {
+export const displayFavorites = async () => {
   //toon tooted
   const products = await getProductsDataByCategory();
 
@@ -63,7 +63,7 @@ export const displayFavorites = async (customer) => {
             </label>
             <img
               class="productImage"
-              src="./assets/Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops.png"
+              src="${product.image}"
               alt="Backpack"
             />
 

@@ -9,7 +9,7 @@ class Cart {
   }
 
   addProduct(product, quantity) {
-    const existingItem = this.items.find(
+    const existingItem = cart.items.find(
       (item) => item.product.id === product.id,
     );
     if (existingItem) {

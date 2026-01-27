@@ -3,7 +3,10 @@ import { customer } from "../constructors/customer.js";
 import { Product } from "../constructors/product.js";
 import { getProductsDataByCategory } from "../api.js";
 import { navigate } from "../router.js";
-export const displayDetailView = async (id) => {
+export const displayDetailView = async (product) => {
+  const categoriesDiv = document.getElementsByClassName("categories");
+
+  categoriesDiv.innerHTML = "";
   //toon tooted
   const products = await getProductsDataByCategory();
   //lisan ekstra divi css jaoks
@@ -18,16 +21,16 @@ export const displayDetailView = async (id) => {
         <div class="detailView">
           <div id="pictureDiv">
             <img
-              src="${products[id].image}"
+              src="${product.image}"
               alt=""
             />
           </div>
           <!-- all text -->
           <div>
-           <p> ${products[id].category}</p>
-            <p>${products[id].title}</p>
-            <p>${products[id].price}</p>
-            <p>${products[id].description}</p>
+           <p> ${product.category}</p>
+            <p>${product.title}</p>
+            <p>${product.price}</p>
+            <p>${product.description}</p>
             <div class="buttons">
               <button    id="detailViewAddToCartButton" class="addToCart">lisa ostukorvi</button
               ><button  id="addToFavoritesButton" class="addToLiked"></button>

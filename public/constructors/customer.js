@@ -17,32 +17,30 @@ class Customer {
   }
   //favorties
   addFavorite(product, customer) {
-    const existing = customer.favorites.includes(product);
-    if (!existing) {
-      this.favorites.push(product);
-      return;
-    }
-    if (existing) {
-      this.favorites.pop(product);
-
-      return;
+    const favorites = customer.favorites;
+    // ju tootab aga mulle ei meeldi ei sobi ei taha ka miks !==
+    const filtered = favorites.filter(
+      (favortiesArray) => favortiesArray.id !== product.id,
+    );
+    console.log(filtered);
+    if (filtered.length === favorites.length) {
+      favorites.push(product);
+      console.log("added to fav");
+    } else {
+      customer.favorites = filtered;
+      console.log("removed from fav");
     }
   }
   isActive(product) {
+    const favorites = customer.favorites;
+    const filtered = favorites.filter(
+      (favortiesArray) => favortiesArray.id !== product.id,
+    );
+    console.log(filtered);
     const existing = customer.favorites.includes(product);
-
     return existing;
   }
-  removeFavorite(product, customer) {
-    const existing = customer.favorites.includes(product);
 
-    if (existing) {
-      this.favorites.pop(product);
-      console.log("popped");
-
-      return;
-    }
-  }
   getFavorites() {
     return this.favorites;
   }

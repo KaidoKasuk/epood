@@ -1,7 +1,7 @@
 import { cart } from "../constructors/cart.js";
 import { customer, Customer } from "../constructors/customer.js";
 import { getProductsDataByCategory } from "../api.js";
-
+import { navigate } from "../router.js";
 //funktsioon ostukorvi vaateks
 export const displayCartView = async () => {
   const products = await getProductsDataByCategory();
@@ -30,6 +30,37 @@ export const displayCartView = async () => {
   cartWrapper.className = "cartWrapper";
   displayCartView.appendChild(cartWrapper);
   //toodete kuvamine
+
+  //funktsioonid
+  window.plusButton = function () {
+    console.log("plusbutton happend");
+    //toote id mis cart.js läheb
+    const productId = event.target.dataset.productId;
+    cart.addProduct(products[productId - 1], 1);
+    //värskendab lehte, vist halb variant aga töötab :D
+    navigate("cart", cart);
+  };
+  window.minusButton = function () {
+    const productId = event.target.dataset.productId;
+    cart.removeProduct(products[productId - 1], 1);
+    navigate("cart", cart);
+  };
+
+  window.removeProduct = function () {
+    if (event.target.closest(".removeProduct")) {
+      // console.log("product removed");
+      const productId = event.target.dataset.productId;
+      cart.deleteProduct(products[productId - 1]);
+      navigate("cart", cart);
+      // console.log(cart);
+    }
+  };
+  window.clearAll = function () {
+    if (event.target.closest("#clearAll")) {
+      cart.clearAllItems();
+      navigate("cart", cart);
+    }
+  };
   cartLenght.forEach((product) => {
     i++;
     cartWrapper.innerHTML += `<div class="ostukorvForEach">
@@ -37,7 +68,7 @@ export const displayCartView = async () => {
            <div class="leftSide">
             <div>
               <img
-                src="assets/Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops.png"
+                src="${cart.items[i].product.image}"
                 alt=""
               />
             </div>
@@ -48,18 +79,18 @@ export const displayCartView = async () => {
             </div>
             </div>
             <div class="cartButtons">
-              <button class="removeProduct" data-product-id="${cart.items[i].product.id} " >eemalda ese</button>
+              <button class="removeProduct" data-product-id="${cart.items[i].product.id}"  onclick="removeProduct()">eemalda ese</button>
                <div id="${i}">
-              <button class="minusButton" data-product-id="${cart.items[i].product.id} ">-</button>
+              <button class="minusButton" data-product-id="${cart.items[i].product.id}"  onclick="minusButton()">-</button>
                 <span ">${cart.items[i].quantity}</span>
-              <button class="plusButton" data-product-id="${cart.items[i].product.id}">+</button>
+              <button class="plusButton" data-product-id="${cart.items[i].product.id}" onclick="plusButton()">+</button>
               </div>
             </div>
           </div>
         </div>`;
   });
   displayCartView.innerHTML += `<div class="ostukorviFooter">
-  <button id="clearAll" >Kustuda kõik tooted💀</button>
+  <button id="clearAll" onclick="clearAll()">Kustuda kõik tooted💀</button>
           <div class="kakskordakolm">
             <p>vahesumma</p>
             <p>${cart.calculateTax()}</p>
@@ -68,43 +99,6 @@ export const displayCartView = async () => {
             <p>kokku</p>
             <p>${cart.calculateTotal()}</p>
           </div>
-          <button id="finalBuy" class="osta">osta</button>
+          <button id="finalBuy" onclick="${customer.placeOrder(cart)} "class="osta">osta</button>
         </div>`;
-
-  const index = document.getElementById(i);
-  finalBuy.onclick = () => {
-    customer.placeOrder(cart);
-  };
-
-  // - - --------OSTUKORVI VAATES NUPUD- ------ //
-  document.addEventListener("click", (event) => {
-    if (event.target.closest(".plusButton")) {
-      console.log("plusbutton happend");
-      //toote id mis cart.js läheb
-      const productId = event.target.dataset.productId;
-      // console.log(productId);
-      cart.addProduct(Products[productId - 1], 1);
-      //värskendab lehte, vist halb variant aga töötab :D
-      navigate(displayCartView(cart));
-    }
-    if (event.target.closest(".minusButton")) {
-      // console.log("minusbutton happend");
-      const productId = event.target.dataset.productId;
-
-      cart.removeProduct(Products[productId - 1], 1);
-      navigate(displayCartView(cart));
-      console.log(cart);
-    }
-    if (event.target.closest(".removeProduct")) {
-      // console.log("product removed");
-      const productId = event.target.dataset.productId;
-      cart.deleteProduct(Products[productId - 1]);
-      navigate(displayCartView(cart));
-      // console.log(cart);
-    }
-    if (event.target.closest("#clearAll")) {
-      cart.clearAllItems();
-      navigate(displayCartView(cart));
-    }
-  });
 };

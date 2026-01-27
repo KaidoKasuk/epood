@@ -11,7 +11,6 @@ import { displayCartView } from "./views/cartView.js";
 import { displayFavorites } from "./views/favoritesView.js";
 //muu import
 import { navigate } from "./router.js";
-ˇ;
 
 const initApp = () => {
   //muudan json faili sisu globaalseks
@@ -29,23 +28,29 @@ const initApp = () => {
   // navigate(displayAllProductsView(Products));
   //- - - - -- - - - -- - HEADERI NUPUD - - -- - - -- //
   const homeButton = document.getElementById("toHomeButton");
+  const mainHomeButton = document.getElementById("homeButton");
   const cartButton = document.getElementById("toCartButton");
   const favoriteButton = document.getElementById("toFavoriteButton");
-  const detailViewButton = document.getElementById(`${product.id}`);
   //- - - - -- - - - -- - MAIN VAATES NUPUD - - -- - - -- //
   // const addToCartButton = document.getElementById("addToCartButton");
   const addToFavoritesButton = document.getElementById("addToFavoritesButton");
 
-  //navigatsiooni menüü nupud
-  cartButton.addEventListener("click", (event) => {
-    console.log(cart);
-    navigate("cart", cart);
-  });
-  homeButton.addEventListener("click", (event) => {
-    navigate("allProducts");
-  });
-  favoriteButton.addEventListener("click", (event) => {
-    navigate("favorites", customer);
+  //logo peale nupu vajutus
+  document.addEventListener("click", (event) => {
+    if (event.target.closest("#toHomeButton")) {
+      navigate("allProducts", "all");
+    }
+    if (event.target.closest("#homeButton")) {
+      navigate("allProducts", "all");
+    }
+
+    if (event.target.closest("#toCartButton")) {
+      navigate("cart", cart);
+    }
+
+    if (event.target.closest("#toFavoriteButton")) {
+      navigate("favorites", customer);
+    }
   });
 
   const path = window.location.pathname;

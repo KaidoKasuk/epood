@@ -2,14 +2,13 @@ body {
   margin: 0;
 }
 /* -------- header- - - - -- - - - -- - -- */
-#header {
+#upperHeader {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin: 0;
   padding: 2lvh;
   background-color: rgb(193, 193, 193);
-  margin-bottom: 10lvh;
 }
 #header-text-side {
   display: flex;
@@ -28,6 +27,55 @@ h2 {
   display: grid;
 }
 /* ------- --produktid eraldi, peavaade -- - - - - - - */
+
+.categories {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+
+  margin-bottom: 10lvh;
+}
+.categoryButtons {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  margin: 1lvh;
+  padding: 8px 32px;
+  border: 1px solid #0a0a0a;
+  background-color: antiquewhite;
+  color: #0a0a0a;
+
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 999px; /* pill shape */
+  cursor: pointer;
+
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease,
+    border-color 0.3s ease,
+    font-size 0.3s ease-in-out;
+}
+
+/* Hide the native radio */
+.categoryButtons input[type="radio"] {
+  display: none;
+}
+
+/* Hover effect */
+.categoryButtons:hover {
+  font-size: 105%;
+}
+
+/* ✅ Selected state */
+.categoryButtons:has(input[type="radio"]:checked) {
+  background-color: #0a0a0a;
+  color: antiquewhite;
+  border-color: #0a0a0a;
+}
+
 main {
   min-height: 100vh;
   display: grid;
@@ -106,6 +154,9 @@ h5 {
 .buyButton:active {
   background-color: white;
 }
+.remove {
+  display: none;
+}
 /* - - - -- - -- -- --- -- detail vaade   -- - - -- - -- - - */
 .detailWrapper {
   display: flex;
@@ -167,6 +218,9 @@ h5 {
   background-color: rgb(2, 21, 141);
 }
 /* - - - -- - - -- - - - -- ---ostukorv - - -- - ---- - -----*/
+img {
+  max-width: 20lvh;
+}
 .cartWrapper {
   margin-right: 5lvh;
   margin-left: 5lvh;
