@@ -5,7 +5,7 @@ class Order {
   }
   printOrder() {
     const productLines = this.cart.items.map(
-      (item) => `${item.product.title}: ${item.quantity}`
+      (item) => `${item.product.title}: ${item.quantity}`,
     );
     return `
      Kuupäev: ${

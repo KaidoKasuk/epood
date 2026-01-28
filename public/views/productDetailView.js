@@ -4,7 +4,6 @@ import { Product } from "../constructors/product.js";
 import { getProductsDataByCategory } from "../api.js";
 import { navigate } from "../router.js";
 export const displayDetailView = async (i) => {
-  console.log(i);
   const categoriesDiv = document.getElementsByClassName("categories");
 
   categoriesDiv.innerHTML = "";
@@ -47,7 +46,7 @@ export const displayDetailView = async (i) => {
     favoriteButton.innerHTML = "lisa Lemmikutesse";
   }
   detailViewAddToCartButton.onclick = () => {
-    cart.addProduct(product, 1);
+    cart.addProduct(products[i - 1], 1);
   };
   favoriteButton.onclick = () => {
     customer.addFavorite(products[i - 1], customer);

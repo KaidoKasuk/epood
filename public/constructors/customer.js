@@ -18,19 +18,19 @@ class Customer {
   //favorties
   addFavorite(product, customer) {
     const favorites = customer.favorites;
-    // ju tootab aga mulle ei meeldi ei sobi ei taha ka miks !==
     const filtered = favorites.filter(
       (favortiesArray) => favortiesArray.id !== product.id,
     );
-    console.log(filtered);
+    // console.log(filtered);
     if (filtered.length === favorites.length) {
       favorites.push(product);
-      console.log("added to fav");
+      // console.log("added to fav");
     } else {
       customer.favorites = filtered;
-      console.log("removed from fav");
+      // console.log("removed from fav");
     }
   }
+  //css südame loogika jaoks
   isActive(toode) {
     const existing = customer.favorites.some(
       (product) => product.id === toode.id,
@@ -41,7 +41,7 @@ class Customer {
   getFavorites() {
     return this.favorites;
   }
-
+  // ostukorvi mällu jätmiseks
   getName() {
     return this.name;
   }

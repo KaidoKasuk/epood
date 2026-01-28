@@ -22,7 +22,6 @@ export const displayCartView = async () => {
           <p id="allProductsCount">Tooteid kokku ${cart.totalItems}</p>
           
         </div>`;
-  //toodete info automaatseks kuvamiseks
   let i = -1;
 
   //lisan ekstra divi css jaoks
@@ -33,11 +32,10 @@ export const displayCartView = async () => {
 
   //funktsioonid
   window.plusButton = function () {
-    console.log("plusbutton happend");
+    // console.log("plusbutton happend");
     //toote id mis cart.js läheb
     const productId = event.target.dataset.productId;
     cart.addProduct(products[productId - 1], 1);
-    //värskendab lehte, vist halb variant aga töötab :D
     navigate("cart", cart);
   };
   window.minusButton = function () {
@@ -48,11 +46,9 @@ export const displayCartView = async () => {
 
   window.removeProduct = function () {
     if (event.target.closest(".removeProduct")) {
-      // console.log("product removed");
       const productId = event.target.dataset.productId;
       cart.deleteProduct(products[productId - 1]);
       navigate("cart", cart);
-      // console.log(cart);
     }
   };
   window.clearAll = function () {
@@ -65,6 +61,8 @@ export const displayCartView = async () => {
   window.placeOrder = function () {
     customer.placeOrder(cart);
   };
+
+  //html
   cartLenght.forEach((product) => {
     i++;
     cartWrapper.innerHTML += `<div class="ostukorvForEach">

@@ -4,11 +4,10 @@ class Cart {
     this.items = [];
   }
 
-  //Võta kõik ostukorvi tooted
   getAllProducts() {
     if (localStorage.getItem(customer.getName()) !== null) {
       const cartItems = JSON.parse(localStorage.getItem(customer.getName()));
-      console.log(cartItems);
+      // console.log(cartItems);
       this.items = cartItems;
     }
     return this.items;
@@ -25,7 +24,7 @@ class Cart {
     }
     localStorage.setItem(customer.getName(), JSON.stringify(this.items));
   }
-
+  // vahenda kogust
   removeProduct(product, change) {
     const existing = this.items.find((item) => item.product.id === product.id);
 
@@ -36,12 +35,14 @@ class Cart {
     if (existing.quantity <= 0) {
       cart.deleteProduct(product);
     }
+    localStorage.setItem(customer.getName(), JSON.stringify(this.items));
   }
+  //spetsiifilise toote kustutamiseks
   deleteProduct(product) {
     const existing = this.items.find((item) => item.product.id === product.id);
-    // console.log(existing.quantity);
 
     this.items = this.items.filter((item) => item.product.id !== product.id);
+    localStorage.setItem(customer.getName(), JSON.stringify(this.items));
   }
 
   calculateTotal() {
@@ -56,6 +57,7 @@ class Cart {
 
   clearAllItems() {
     this.items = [];
+    localStorage.setItem(customer.getName(), JSON.stringify(this.items));
   }
 
   get totalItems() {

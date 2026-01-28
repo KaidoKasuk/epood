@@ -1,0 +1,17 @@
+    EPOOD õppimis eesmärgil
+
+KIRJELDUS:
+See on fakestore api põhjal tehtud epood õppimiseks. Kasutan ainult ühte htmli faili.
+Backend ja front on eraldi, url muutub epoe vaadetes. Projektis on nii eesti keel kui inglise keelt.
+Public kaustas on vaated ja konstruktorid eraldi.
+Data kausta tulevad läbi api andmed.
+
+Kasutan node versiooni 11.6.2
+
+Kuidas kasutada:
+git clone https://github.com/KaidoKasuk/epood.git
+Kontrolli et oled EPOOD kaustas
+npm install
+npm start
+
+Soovi korral saab porti muuta server.js rida 6

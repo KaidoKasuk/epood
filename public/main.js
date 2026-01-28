@@ -24,18 +24,15 @@ const initApp = () => {
   // tooted
   const Products = [];
   Products.push(toode);
-  //vaate tööle panemine
-  // navigate(displayAllProductsView(Products));
   //- - - - -- - - - -- - HEADERI NUPUD - - -- - - -- //
   const homeButton = document.getElementById("toHomeButton");
   const mainHomeButton = document.getElementById("homeButton");
   const cartButton = document.getElementById("toCartButton");
   const favoriteButton = document.getElementById("toFavoriteButton");
   //- - - - -- - - - -- - MAIN VAATES NUPUD - - -- - - -- //
-  // const addToCartButton = document.getElementById("addToCartButton");
   const addToFavoritesButton = document.getElementById("addToFavoritesButton");
 
-  //logo peale nupu vajutus
+  //logo peale nupu vajutus ja header
   document.addEventListener("click", (event) => {
     if (event.target.closest("#toHomeButton")) {
       navigate("allProducts", "all");

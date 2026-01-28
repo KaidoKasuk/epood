@@ -16,9 +16,7 @@ export const displayFavorites = async () => {
   if (favoriteLenght.length === 0) {
     displayFavorites.innerHTML = `<p class="noFavorites">Lemmikuid pole :(</p>`;
     return;
-  }
-  //esimene osa lehest
-  else
+  } else
     displayFavorites.innerHTML += ` <div class="favoriteAllText">
           <p class="favoriteTitle">Favorites</p>
           <p>Tooteid kokku ${favoriteLenght.length}</p>
@@ -95,4 +93,21 @@ export const displayFavorites = async () => {
           </div>
         `;
   });
+
+  window.favoritesHandler = function () {
+    const card = event.target.closest(".oneProduct");
+    const id = Number(card.dataset.id);
+    const product = products[id - 1];
+    const checkbox = event.target;
+
+    const svg = checkbox.nextElementSibling;
+    customer.addFavorite(product, customer);
+
+    svg.classList.toggle("active", checkbox.checked);
+
+    if (svg.classList.contains("YouAreInFavoriteView")) {
+      navigate("favorites", customer);
+    }
+    // console.log(customer);
+  };
 };

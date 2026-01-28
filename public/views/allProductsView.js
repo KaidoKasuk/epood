@@ -62,9 +62,19 @@ export const displayAllProductsView = async () => {
     }
     showProductsByCategory(newProducts);
   }
-  // vali kategooria
+  // valin kategooria
   categories.addEventListener("change", (event) => {
     getProductsByCategory(event.target.value);
+    const selectedCategory = event.target.value;
+    // 1. update URL (no refresh)
+    const url =
+      selectedCategory === "All Products"
+        ? "/"
+        : `?category=${selectedCategory}`;
+
+    history.pushState({ category: selectedCategory }, "", url);
+
+    getProductsByCategory(selectedCategory);
   });
   //lisan ekstra divi css jaoks
   const wrapper = document.createElement("div");
@@ -136,7 +146,7 @@ export const displayAllProductsView = async () => {
   window.plusButton = function () {
     const card = event.target.closest(".oneProduct");
     const id = Number(card.dataset.id);
-    cart.addProduct(products[id], 1);
+    cart.addProduct(products[id - 1], 1);
   };
 
   displayAllProductsView.addEventListener("click", (event) => {
@@ -152,7 +162,6 @@ export const displayAllProductsView = async () => {
       return;
     } else {
       categories.remove();
-      console.log(products[id - 1].id);
       navigate("productDetail", products[id - 1].id);
     }
   });
@@ -172,6 +181,6 @@ export const displayAllProductsView = async () => {
     if (svg.classList.contains("YouAreInFavoriteView")) {
       navigate("favorites", customer);
     }
-    console.log(customer);
+    // console.log(customer);
   };
 };
