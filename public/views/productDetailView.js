@@ -3,7 +3,8 @@ import { customer } from "../constructors/customer.js";
 import { Product } from "../constructors/product.js";
 import { getProductsDataByCategory } from "../api.js";
 import { navigate } from "../router.js";
-export const displayDetailView = async (product) => {
+export const displayDetailView = async (i) => {
+  console.log(i);
   const categoriesDiv = document.getElementsByClassName("categories");
 
   categoriesDiv.innerHTML = "";
@@ -21,16 +22,16 @@ export const displayDetailView = async (product) => {
         <div class="detailView">
           <div id="pictureDiv">
             <img
-              src="${product.image}"
+              src="${products[i - 1].image}"
               alt=""
             />
           </div>
           <!-- all text -->
           <div>
-           <p> ${product.category}</p>
-            <p>${product.title}</p>
-            <p>${product.price}</p>
-            <p>${product.description}</p>
+           <p> ${products[i - 1].category}</p>
+            <p>${products[i - 1].title}</p>
+            <p>${products[i - 1].price}</p>
+            <p>${products[i - 1].description}</p>
             <div class="buttons">
               <button    id="detailViewAddToCartButton" class="addToCart">lisa ostukorvi</button
               ><button  id="addToFavoritesButton" class="addToLiked"></button>
@@ -39,7 +40,7 @@ export const displayDetailView = async (product) => {
         </div>`;
   const favoriteButton = document.getElementById("addToFavoritesButton");
 
-  const isActive = customer.isActive(product);
+  const isActive = customer.isActive(products[i - 1]);
   if (isActive) {
     favoriteButton.innerHTML = "eemalda lemmikutest";
   } else if (!isActive) {
@@ -48,14 +49,14 @@ export const displayDetailView = async (product) => {
   detailViewAddToCartButton.onclick = () => {
     cart.addProduct(product, 1);
   };
-  addToFavoritesButton.onclick = () => {
-    customer.addFavorite(product, customer);
-    displayDetailView(product);
+  favoriteButton.onclick = () => {
+    customer.addFavorite(products[i - 1], customer);
+    navigate("productDetail", products[i - 1].id, false);
   };
   // tagasi nupp
   document.addEventListener("click", (event) => {
     if (event.target.id === "backButton") {
-      navigate("allProducts", "all", false);
+      navigate("allProducts", "all", true);
     }
   });
 };

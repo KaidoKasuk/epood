@@ -61,6 +61,10 @@ export const displayCartView = async () => {
       navigate("cart", cart);
     }
   };
+
+  window.placeOrder = function () {
+    customer.placeOrder(cart);
+  };
   cartLenght.forEach((product) => {
     i++;
     cartWrapper.innerHTML += `<div class="ostukorvForEach">
@@ -99,6 +103,6 @@ export const displayCartView = async () => {
             <p>kokku</p>
             <p>${cart.calculateTotal()}</p>
           </div>
-          <button id="finalBuy" onclick="${customer.placeOrder(cart)} "class="osta">osta</button>
+          <button id="finalBuy" onclick="placeOrder()" class="osta">osta</button>
         </div>`;
 };

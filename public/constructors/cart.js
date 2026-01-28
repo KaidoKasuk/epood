@@ -1,3 +1,4 @@
+import { customer } from "./customer.js";
 class Cart {
   constructor() {
     this.items = [];
@@ -5,6 +6,11 @@ class Cart {
 
   //Võta kõik ostukorvi tooted
   getAllProducts() {
+    if (localStorage.getItem(customer.getName()) !== null) {
+      const cartItems = JSON.parse(localStorage.getItem(customer.getName()));
+      console.log(cartItems);
+      this.items = cartItems;
+    }
     return this.items;
   }
 
@@ -17,6 +23,7 @@ class Cart {
     } else {
       this.items.push({ product, quantity });
     }
+    localStorage.setItem(customer.getName(), JSON.stringify(this.items));
   }
 
   removeProduct(product, change) {

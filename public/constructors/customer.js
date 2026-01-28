@@ -31,18 +31,19 @@ class Customer {
       console.log("removed from fav");
     }
   }
-  isActive(product) {
-    const favorites = customer.favorites;
-    const filtered = favorites.filter(
-      (favortiesArray) => favortiesArray.id !== product.id,
+  isActive(toode) {
+    const existing = customer.favorites.some(
+      (product) => product.id === toode.id,
     );
-    console.log(filtered);
-    const existing = customer.favorites.includes(product);
     return existing;
   }
 
   getFavorites() {
     return this.favorites;
+  }
+
+  getName() {
+    return this.name;
   }
 }
 export { Customer };

@@ -39,7 +39,7 @@ export const displayFavorites = async () => {
       product.id
     }" class="oneProduct"> 
             <label  id="${customer.favorites[i]}" class="heartWrapper">
-             <input type="checkbox" ${
+             <input onclick="favoritesHandler()" type="checkbox" ${
                isActive ? "checked" : ""
              } class="heartLabel" >
               <svg class="YouAreInFavoriteView heartInProduct ${

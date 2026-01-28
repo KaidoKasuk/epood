@@ -39,21 +39,7 @@ export const displayAllProductsView = async () => {
   `;
     i++;
   });
-  function getProductsByCategory(products, selectedCategory) {
-    let newProducts;
-    if (selectedCategory === "All Products") {
-      newProducts = products;
-    } else {
-      newProducts = products.filter(
-        (product) => product.category === selectedCategory,
-      );
-    }
-    showProductsByCategory(newProducts);
-  }
-  categories.addEventListener("change", (e) => {
-    getProductsByCategory(products, e.target.value);
-  });
-
+  // kuvan ainult õiged tooted
   function showProductsByCategory(newProducts) {
     const allProducts = document.querySelectorAll(".oneProduct");
     allProducts.forEach((card) => {
@@ -64,7 +50,22 @@ export const displayAllProductsView = async () => {
       oneProduct.classList.remove("remove");
     });
   }
-
+  // saan kategooria
+  function getProductsByCategory(selectedCategory) {
+    let newProducts;
+    if (selectedCategory === "All Products") {
+      newProducts = products;
+    } else {
+      newProducts = products.filter(
+        (product) => product.category === selectedCategory,
+      );
+    }
+    showProductsByCategory(newProducts);
+  }
+  // vali kategooria
+  categories.addEventListener("change", (event) => {
+    getProductsByCategory(event.target.value);
+  });
   //lisan ekstra divi css jaoks
   const wrapper = document.createElement("div");
   wrapper.className = "allProductsWrapper";
@@ -72,13 +73,13 @@ export const displayAllProductsView = async () => {
   //for eaching iga toote kaardi
   products.forEach((product) => {
     //lemmikute kuvamiseks loogika
+
     const isActive = customer.isActive(product);
-    console.log(isActive);
-    wrapper.innerHTML += ` <div data-id="${product.id}"  id="${product.id}" class="oneProduct"> 
+    wrapper.innerHTML += `<div data-id="${product.id}"  id="${product.id}" class="oneProduct"> 
             <label  id="${product.id}" class="heartWrapper">
-             <input onclick="favoritesHandler()" type="checkbox" ${
+             <input  type="checkbox" ${
                isActive ? "checked" : ""
-             } class="heartLabel" >
+             } class="heartLabel" onclick="favoritesHandler()">
               <svg class="heartInProduct ${isActive ? "active" : ""}"
               
                 xmlns="http://www.w3.org/2000/svg"
@@ -151,7 +152,8 @@ export const displayAllProductsView = async () => {
       return;
     } else {
       categories.remove();
-      navigate("productDetail", products[id - 1]);
+      console.log(products[id - 1].id);
+      navigate("productDetail", products[id - 1].id);
     }
   });
 
@@ -159,12 +161,11 @@ export const displayAllProductsView = async () => {
   window.favoritesHandler = function () {
     const card = event.target.closest(".oneProduct");
     const id = Number(card.dataset.id);
-    const product = products[id];
+    const product = products[id - 1];
     const checkbox = event.target;
 
     const svg = checkbox.nextElementSibling;
     customer.addFavorite(product, customer);
-    if (!svg) return;
 
     svg.classList.toggle("active", checkbox.checked);
 
